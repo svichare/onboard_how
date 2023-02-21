@@ -1,0 +1,12 @@
+.gpt3__dashboard {
+    max-width: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .gpt3__dashboard-subitem-text {
+    font-size: 0.8rem;
+  }
+
+  .gpt3__dashboard_dropdown {
+    font-size: 0.8rem;
+  }
