@@ -40,12 +40,17 @@ const items = [
     },
   ]
 
+  const projects = [
+    { name: 'First_project_from_array', label: 'first_p' },
+    { name: 'Second_project_from_array', label: 'second_p' }
+  ]
+
 const App = () => (
     <div className="App">
       <div className="gradient__bg">
         <Navbar />
         <Header />
-        <Dashboard items={items} />
+        <Dashboard items={items} projects={projects}/>
         <Footer />
       </div>
     </div>

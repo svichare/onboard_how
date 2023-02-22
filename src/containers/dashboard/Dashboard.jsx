@@ -29,15 +29,19 @@ function DashboardItem({ label, items, depthStep = 10, depth = 0, ...rest }) {
   )
 }
 
-function Dashboard({ items, depthStep, depth }) {
+function Dashboard({ items, projects, depthStep, depth }) {
   return (
     <div className="gpt3__dashboard" id="dashboard">
       <div className="gpt3__dashboard_dropdown">
-			  <select>
-          <option key={1} value={1}>Backed Project (Infrastructure)</option>
-          <option key={2} value={2}>Backend Project (Feature Backend)</option>
-          <option key={3} value={3}>Cloud  Project</option>
-			  </select>
+			  
+        {Array.isArray(projects) ? (
+        <select>
+          {projects.map((project, index) => (
+            <option key={index} value={index}>{project.name}</option>
+          ))}
+        </select>
+      ) : null}
+
 		  </div>
       <List disablePadding dense>
         {items.map((dashboardItem, index) => (
