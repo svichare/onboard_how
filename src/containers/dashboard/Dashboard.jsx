@@ -4,12 +4,17 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 import { API } from '@aws-amplify/api'
-import config from '../../aws-exports'
 import { allProjects } from '../../graphql/queries'
 
 import './dashboard.css';
 
-API.configure(config)
+API.configure({
+  "aws_project_region": process.env.REACT_APP_PROJECT_REGION,
+  "aws_appsync_graphqlEndpoint": process.env.REACT_APP_APPSYNC_GRAPHQLENDPOINT,
+  "aws_appsync_region": process.env.REACT_APP_APPSYNC_REGION,
+  "aws_appsync_authenticationType": process.env.REACT_APP_APPSYNC_AUTHENTICATIONTYPE,
+  "aws_appsync_apiKey": process.env.REACT_APP_APPSYNC_APIKEY
+})
 
 async function list_projects() {
     const response = await API.graphql({
