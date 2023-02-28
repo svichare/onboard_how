@@ -61,7 +61,6 @@ function Dashboard({ items, depthStep, depth }) {
   return (
     <div className="gpt3__dashboard" id="dashboard">
       <div className="gpt3__dashboard_dropdown">
-        
         {Array.isArray(projects) ? (
         <select>
           {projects.map((projects, index) => (

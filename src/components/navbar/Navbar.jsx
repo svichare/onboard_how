@@ -1,6 +1,6 @@
  import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
-import logo from '../../assets/logo_transperant.png';
+import logo from '../../assets/logo_redhat_blue.png';
 import './navbar.css';
 
 const Navbar = () => {
@@ -15,9 +15,6 @@ const Navbar = () => {
         <div className="gpt3__navbar-links_container">
           <p><a href="#home">Home</a></p>
           <p><a href="#dashboard">Learning dashboard</a></p>
-          <p><a href="#possibility">Open AI</a></p>
-          <p><a href="#features">Case Studies</a></p>
-          <p><a href="#blog">Library</a></p>
         </div>
         <div className="gpt3__navbar-sign">
           <p>Sign in</p>

@@ -65,8 +65,8 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 28px;
-    background: #FF4820;
-    border: 2px solid #FF4820;
+    background: #2F4BAE;
+    border: 2px solid #2F4BAE;
     padding: 0 1rem;
     color: #fff;
     cursor: pointer;
@@ -110,7 +110,7 @@
 
 .gpt3__header-image img {
     width: 100%;
-    height: 100%;
+    height: 75%;
 }
 
 @media screen and (max-width: 1050px) {
@@ -126,12 +126,12 @@
 @media screen and (max-width: 650px) {
     .gpt3__header-content h1 {
         font-size: 48px;
-        line-height: 60px;
+        line-height: 40px;
     }
 
     .gpt3__header-content p {
         font-size: 16px;
-        line-height: 24px;
+        line-height: 20px;
     }
     
     .gpt3__header-content__people {
@@ -145,7 +145,8 @@
     .gpt3__header-content__input input,
     .gpt3__header-content__input button {
         font-size: 16px;
-        line-height: 24px;
+        line-height: 4px;
+        line-width: 4px;
     }
 }
 

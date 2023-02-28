@@ -7,6 +7,10 @@ import { Navbar } from './components';
 const items = [
     { name: 'home', label: 'Home' },
     { name: 'Outdoors', label: 'Outdoors' },
+    { name: 'home', label: 'Home' },
+    { name: 'Outdoors', label: 'Outdoors' },
+    { name: 'home', label: 'Home' },
+    { name: 'Outdoors', label: 'Outdoors' },
   ]
 
 const App = () => (
@@ -14,7 +18,7 @@ const App = () => (
       <div className="gradient__bg">
         <Navbar />
         <Header />
-        <Dashboard items={items}/>
+        <Dashboard items={items} label="List Label"/>
         <Footer />
       </div>
     </div>
