@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 import { API } from '@aws-amplify/api'
-import { allProjectsPassQuery } from '../../graphql/queries'
+import { allProjectsPassQuery, allProjectTasks } from '../../graphql/queries'
 
 import './dashboard.css';
 
@@ -22,39 +22,31 @@ async function list_projects() {
        variables: {
        },
     })
-    return response.data.allProjects;
+    return response.data.allProjectsPassQuery;
 }
 
-function DashboardItem({ label, items, depthStep = 10, depth = 0, ...rest }) {
-  return (
-    <>
-      <ListItem button dense {...rest}>
-        <ListItemText style={{ paddingLeft: depth * depthStep }}>
-          <span>{label}</span>
-        </ListItemText>
-      </ListItem>
-      {Array.isArray(items) ? (
-        <List disablePadding dense>
-          {items.map((subItem) => (
-            <DashboardItem
-              key={subItem.name}
-              depth={depth + 1}
-              depthStep={depthStep}
-              {...subItem}
-            />
-          ))}
-        </List>
-      ) : null}
-    </>
-  )
+async function list_project_tasks(id) {
+  const response = await API.graphql({
+     query: allProjectTasks,
+     variables: {
+      projectId:id
+     },
+  })
+  return response.data.allProjectTasks;
 }
 
 function Dashboard({ items, depthStep, depth }) {
   const [projects, setProjects] = useState([]);
+  const [projectTasks, setProjectTasks] = useState([]);
   useEffect( () => { 
     list_projects()
   .then((projects_from_async) => {
     setProjects(projects_from_async);
+    list_project_tasks(projects_from_async[0].id)
+      .then((project_tasks_from_async) => {
+          setProjectTasks(project_tasks_from_async);
+        }
+      );
   });
   }, []);
   
@@ -65,19 +57,19 @@ function Dashboard({ items, depthStep, depth }) {
         <select>
           {projects.map((projects, index) => (
             <option key={index} value={index}>{projects.name}</option>
+            // Update the lists when the dropdown is updated.
           ))}
         </select>
         ) : null}
       </div>
       <List disablePadding dense>
-        {items.map((dashboardItem, index) => (
-          <DashboardItem
-            key={`${dashboardItem.name}${index}`}
-            depthStep={depthStep}
-            depth={depth}
-            {...dashboardItem}
-          />
-        ))}
+          {projectTasks.map((dashboardItem, index) => (
+            <ListItem button>
+            <ListItemText style={{ paddingLeft: depth * depthStep }}>
+              <span>{dashboardItem.name}</span>
+            </ListItemText>
+          </ListItem>
+          ))}
       </List>
     </div>
   );

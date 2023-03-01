@@ -104,7 +104,7 @@
 
 @media screen and (max-width: 1050px) {
     .gpt3__navbar-links_container {
-        display: none;
+        display: flex;
     }
 
     .gpt3__navbar-menu {

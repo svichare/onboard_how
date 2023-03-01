@@ -18,7 +18,7 @@ const App = () => (
       <div className="gradient__bg">
         <Navbar />
         <Header />
-        <Dashboard items={items} label="List Label"/>
+        <Dashboard items={items} />
         <Footer />
       </div>
     </div>
