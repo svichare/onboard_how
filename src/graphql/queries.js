@@ -10,3 +10,21 @@ export const allProjects = /* GraphQL */ `
     }
   }
 `;
+export const allProjectsPassQuery = /* GraphQL */ `
+  query AllProjectsPassQuery {
+    allProjectsPassQuery {
+      id
+      name
+      description
+    }
+  }
+`;
+export const allProjectTasks = /* GraphQL */ `
+  query AllProjectTasks($projectId: ID) {
+    allProjectTasks(projectId: $projectId) {
+      id
+      name
+      description
+    }
+  }
+`;

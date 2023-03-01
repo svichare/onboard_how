@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
 import { API } from '@aws-amplify/api'
-import { allProjects } from '../../graphql/queries'
+import { allProjectsPassQuery } from '../../graphql/queries'
 
 import './dashboard.css';
 
@@ -18,7 +18,7 @@ API.configure({
 
 async function list_projects() {
     const response = await API.graphql({
-       query: allProjects,
+       query: allProjectsPassQuery,
        variables: {
        },
     })
