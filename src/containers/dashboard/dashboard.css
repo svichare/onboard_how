@@ -10,3 +10,74 @@
   .gpt3__dashboard_dropdown {
     font-size: 0.8rem;
   }
+
+  /* Auto generated output */
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f1f1f1;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  .dropdown-menu li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #ddd;
+  }
+
+  /* End of auto generated output */
+
+  /* Start sidebar entries */
+
+  .sidebar {
+    height: 100%;
+    width: 200px;
+    position: flex;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 8px 16px;
+    font-size: 20px;
+    color: #000;
+  }
+  
+  .sidebar li:hover {
+    background-color: #ddd;
+  }
+
+  
+  /* End sidebar entries */

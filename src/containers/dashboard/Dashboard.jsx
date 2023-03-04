@@ -35,41 +35,115 @@ async function list_project_tasks(id) {
   return response.data.allProjectTasks;
 }
 
+function ProjectDropdown(props) {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect( () => { 
+    console.log("In ProjectDropdown's useEffect");
+      // New project selected from dropdown.
+      list_project_tasks(selectedOption)
+        .then((project_tasks_from_async) => {
+          props.setProjectTasks(project_tasks_from_async)
+          }
+        );
+
+  }, [selectedOption]);
+
+  const handleOptionClick = (event) => {
+    setSelectedOption(event.target.value);
+    console.log("Setting option to : ");
+    console.log(selectedOption);
+  };
+
+  return (
+    <div className="dropdown">
+      <select value={selectedOption} onChange={handleOptionClick}>
+      {Array.isArray(props.projects) ? (
+        props.projects.map((project, index) => (
+          <option key={project.id} value={project.id}>{project.name}</option>
+        ))
+      ) : null}
+      </select>
+    </div>
+  );
+}
+
+function TasksSidebar(props) {
+  return (
+      <div>
+        {props.projectTasks.map((value, index) => (
+          <ListItem button>
+          <ListItemText style={{ paddingLeft: 5 }}>
+              <span key={value.id}>{value.name}</span>
+            </ListItemText>
+          </ListItem>
+        ))}
+        </div>
+  );
+}
+
 function Dashboard({ items, depthStep, depth }) {
   const [projects, setProjects] = useState([]);
   const [projectTasks, setProjectTasks] = useState([]);
-  useEffect( () => { 
-    list_projects()
-  .then((projects_from_async) => {
-    setProjects(projects_from_async);
-    list_project_tasks(projects_from_async[0].id)
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [originalProject, setOriginalProject] = useState(null);
+
+  const onItemClick = (project) => {
+    console.log("Project selected from Dropdown");
+    if (originalProject.id === project.id) {
+      console.log("Same project selected!!");
+      return;
+    }
+    console.log("Different project selected. Fetching project tasks.");
+    setOriginalProject(selectedProject);
+    setSelectedProject(project);
+    list_project_tasks(project.id)
       .then((project_tasks_from_async) => {
           setProjectTasks(project_tasks_from_async);
         }
       );
-  });
+  };
+
+  useEffect( () => { 
+    console.log("Possibly Fetching data")
+    if (projects.length<1) {
+      console.log("Fetching data Required")
+      // Loading project and sidebar for the first time.
+      list_projects()
+        .then((projects_from_async) => {
+          setProjects(projects_from_async);
+          setOriginalProject(projects_from_async[0]);
+          setSelectedProject(projects_from_async[0]);
+          list_project_tasks(projects_from_async[0].id)
+            .then((project_tasks_from_async) => {
+                setProjectTasks(project_tasks_from_async);
+              }
+            );
+          });
+    } else if (originalProject.id !== selectedProject.id) {
+      // New project selected from dropdown.
+      list_project_tasks(selectedProject.id)
+        .then((project_tasks_from_async) => {
+            setProjectTasks(project_tasks_from_async);
+          }
+        );
+    } else {
+      console.log("Fetching data NOT Required")
+    }
   }, []);
-  
+
+  function setprojectTasksInFunction(array) {
+    setProjectTasks(array);
+  }
   return (
     <div className="gpt3__dashboard" id="dashboard">
       <div className="gpt3__dashboard_dropdown">
         {Array.isArray(projects) ? (
-        <select>
-          {projects.map((projects, index) => (
-            <option key={index} value={index}>{projects.name}</option>
-            // Update the lists when the dropdown is updated.
-          ))}
-        </select>
+          <ProjectDropdown projects={projects} setProjectTasks={setProjectTasks}/>
         ) : null}
       </div>
       <List disablePadding dense>
-          {projectTasks.map((dashboardItem, index) => (
-            <ListItem button>
-            <ListItemText style={{ paddingLeft: depth * depthStep }}>
-              <span>{dashboardItem.name}</span>
-            </ListItemText>
-          </ListItem>
-          ))}
+        <TasksSidebar projectTasks={projectTasks}/>
       </List>
     </div>
   );
