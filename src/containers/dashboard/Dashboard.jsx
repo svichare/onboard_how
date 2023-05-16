@@ -118,17 +118,22 @@ function Dashboard({ items, depthStep, depth }) {
       list_projects()
         .then((projects_from_async) => {
           setProjects(projects_from_async);
-          setOriginalProject(projects_from_async[0]);
-          setSelectedProject(projects_from_async[0]);
-          console.log("Project fetched. Now fetching tasks")
-          list_project_tasks(projects_from_async[0].id)
-            .then((project_tasks_from_async) => {
-                setProjectTasks(project_tasks_from_async);
-                console.log("Project Tasks fetched.")
-              }
-            );
+          if (projects_from_async.length > 0) {
+            setOriginalProject(projects_from_async[0]);
+            setSelectedProject(projects_from_async[0]);
+            console.log("Project fetched. Now fetching tasks")
+            list_project_tasks(projects_from_async[0].id)
+              .then((project_tasks_from_async) => {
+                  setProjectTasks(project_tasks_from_async);
+                  console.log("Project Tasks fetched.")
+                }
+              );
+          } else {
+            console.log("Project list empty")
+          }
+
           });
-    } else if (originalProject.id !== selectedProject.id) {
+    } else if (selectedProject && originalProject.id !== selectedProject.id) {
       // New project selected from dropdown.
       list_project_tasks(selectedProject.id)
         .then((project_tasks_from_async) => {
