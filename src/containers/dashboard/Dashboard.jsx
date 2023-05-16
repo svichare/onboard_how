@@ -120,9 +120,11 @@ function Dashboard({ items, depthStep, depth }) {
           setProjects(projects_from_async);
           setOriginalProject(projects_from_async[0]);
           setSelectedProject(projects_from_async[0]);
+          console.log("Project fetched. Now fetching tasks")
           list_project_tasks(projects_from_async[0].id)
             .then((project_tasks_from_async) => {
                 setProjectTasks(project_tasks_from_async);
+                console.log("Project Tasks fetched.")
               }
             );
           });
