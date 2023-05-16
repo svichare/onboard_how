@@ -23,20 +23,24 @@ async function list_projects() {
        variables: {
        },
     })
+    return response.data.allProjectsPassQuery;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
   }
-    return response.data.allProjectsPassQuery;
 }
 
 async function list_project_tasks(id) {
-  const response = await API.graphql({
-     query: allProjectTasks,
-     variables: {
-      projectId:id
-     },
-  })
-  return response.data.allProjectTasks;
+  try {
+    const response = await API.graphql({
+      query: allProjectTasks,
+      variables: {
+        projectId:id
+      },
+    })
+    return response.data.allProjectTasks;
+  } catch (error) {
+    console.error(`Cought error in function : ${error}`);
+  }
 }
 
 function ProjectDropdown(props) {
