@@ -17,11 +17,15 @@ API.configure({
 })
 
 async function list_projects() {
+  try {
     const response = await API.graphql({
        query: allProjectsPassQuery,
        variables: {
        },
     })
+  } catch (error) {
+    console.error(`Cought error in function : ${error}`);
+  }
     return response.data.allProjectsPassQuery;
 }
 
