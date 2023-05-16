@@ -10,7 +10,8 @@ import './dashboard.css';
 
 API.configure({
   "aws_project_region": process.env.REACT_APP_PROJECT_REGION,
-  "aws_appsync_graphqlEndpoint": process.env.REACT_APP_APPSYNC_GRAPHQLENDPOINT,
+  // "aws_appsync_graphqlEndpoint": process.env.REACT_APP_APPSYNC_GRAPHQLENDPOINT,
+  "aws_appsync_graphqlEndpoint": "https://v2t6wol6y5eszjx22qsh4u76ki.appsync-api.us-east-1.amazonaws.com/graphql",
   "aws_appsync_region": process.env.REACT_APP_APPSYNC_REGION,
   "aws_appsync_authenticationType": process.env.REACT_APP_APPSYNC_AUTHENTICATIONTYPE,
   "aws_appsync_apiKey": process.env.REACT_APP_APPSYNC_APIKEY
@@ -26,6 +27,7 @@ async function list_projects() {
     return response.data.allProjectsPassQuery;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
+    return []
   }
 }
 
@@ -40,6 +42,7 @@ async function list_project_tasks(id) {
     return response.data.allProjectTasks;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
+    return []
   }
 }
 
