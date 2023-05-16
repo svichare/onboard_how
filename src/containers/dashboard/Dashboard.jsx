@@ -38,6 +38,12 @@ async function list_project_tasks(id) {
 function ProjectDropdown(props) {
   const [selectedOption, setSelectedOption] = useState(null);
 
+  if (Array.isArray(props.projects)) {
+    if ((selectedOption == null) && (props.projects.length > 0)) {
+      setSelectedOption(props.projects[0]['id']);
+    }
+  }
+
   useEffect( () => { 
     console.log("In ProjectDropdown's useEffect");
       // New project selected from dropdown.
@@ -72,8 +78,8 @@ function TasksSidebar(props) {
   return (
       <div>
         {props.projectTasks.map((value, index) => (
-          <ListItem button>
-          <ListItemText style={{ paddingLeft: 5 }}>
+          <ListItem key={value.id} button>
+          <ListItemText key={value.id} style={{ paddingLeft: 5 }}>
               <span key={value.id}>{value.name}</span>
             </ListItemText>
           </ListItem>
