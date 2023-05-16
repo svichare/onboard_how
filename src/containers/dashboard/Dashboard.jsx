@@ -132,6 +132,9 @@ function Dashboard({ items, depthStep, depth }) {
             console.log("Project list empty")
           }
 
+          })
+          .catch((error) => {
+            console.error(`Could not get project list: ${error}`);
           });
     } else if (selectedProject && originalProject.id !== selectedProject.id) {
       // New project selected from dropdown.
