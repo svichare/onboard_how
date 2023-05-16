@@ -127,15 +127,17 @@ function Dashboard({ items, depthStep, depth }) {
                   setProjectTasks(project_tasks_from_async);
                   console.log("Project Tasks fetched.")
                 }
-              );
+              )
+              .catch((error) => {
+                console.error(`Could not get Task list: ${error}`);
+              });
           } else {
             console.log("Project list empty")
           }
-
           })
-          .catch((error) => {
-            console.error(`Could not get project list: ${error}`);
-          });
+        .catch((error) => {
+          console.error(`Could not get project list: ${error}`);
+        });
     } else if (selectedProject && originalProject.id !== selectedProject.id) {
       // New project selected from dropdown.
       list_project_tasks(selectedProject.id)
