@@ -47,29 +47,25 @@ async function list_project_tasks(id) {
 }
 
 function ProjectDropdown(props) {
-  const [selectedOption, setSelectedOption] = useState(null);
+  console.log("Renderring ProjectDropDown");
+
+  const [selectedOption, setSelectedOption] = useState(0);
 
   if (Array.isArray(props.projects)) {
-    if ((selectedOption == null) && (props.projects.length > 0)) {
+    if ((selectedOption == 0) && (props.projects.length > 0)) {
       setSelectedOption(props.projects[0]['id']);
     }
   }
 
-  useEffect( () => { 
-    console.log("In ProjectDropdown's useEffect");
-      // New project selected from dropdown.
-      list_project_tasks(selectedOption)
-        .then((project_tasks_from_async) => {
-          props.setProjectTasks(project_tasks_from_async)
-          }
-        );
-
-  }, [selectedOption]);
-
   const handleOptionClick = (event) => {
     setSelectedOption(event.target.value);
     console.log("Setting option to : ");
-    console.log(selectedOption);
+    console.log(event.target.value);
+    list_project_tasks(event.target.value)
+      .then((project_tasks_from_async) => {
+        props.setProjectTasks(project_tasks_from_async)
+        }
+      );
   };
 
   return (
@@ -86,6 +82,7 @@ function ProjectDropdown(props) {
 }
 
 function TasksSidebar(props) {
+  console.log("Renderring task sidebar");
   return (
       <div>
         {props.projectTasks.map((value, index) => (
@@ -100,65 +97,35 @@ function TasksSidebar(props) {
 }
 
 function Dashboard({ items, depthStep, depth }) {
+  console.log("Renderring Dashboard");
+
   const [projects, setProjects] = useState([]);
   const [projectTasks, setProjectTasks] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [originalProject, setOriginalProject] = useState(null);
 
-  const onItemClick = (project) => {
-    console.log("Project selected from Dropdown");
-    if (originalProject.id === project.id) {
-      console.log("Same project selected!!");
-      return;
-    }
-    console.log("Different project selected. Fetching project tasks.");
-    setOriginalProject(selectedProject);
-    setSelectedProject(project);
-    list_project_tasks(project.id)
-      .then((project_tasks_from_async) => {
-          setProjectTasks(project_tasks_from_async);
+  useEffect( () => {
+    console.log("Dashboard useEffect Fetching data")
+    // Loading project and sidebar for the first time.
+    list_projects()
+      .then((projects_from_async) => {
+        setProjects(projects_from_async);
+        if (projects_from_async.length > 0) {
+          console.log("Project fetched. Now fetching tasks")
+          list_project_tasks(projects_from_async[0].id)
+            .then((project_tasks_from_async) => {
+                setProjectTasks(project_tasks_from_async);
+                console.log("Project Tasks fetched.")
+              }
+            )
+            .catch((error) => {
+              console.error(`Could not get Task list: ${error}`);
+            });
+        } else {
+          console.log("Project list empty")
         }
-      );
-  };
-
-  useEffect( () => { 
-    console.log("Possibly Fetching data")
-    if (projects.length<1) {
-      console.log("Fetching data Required")
-      // Loading project and sidebar for the first time.
-      list_projects()
-        .then((projects_from_async) => {
-          setProjects(projects_from_async);
-          if (projects_from_async.length > 0) {
-            setOriginalProject(projects_from_async[0]);
-            setSelectedProject(projects_from_async[0]);
-            console.log("Project fetched. Now fetching tasks")
-            list_project_tasks(projects_from_async[0].id)
-              .then((project_tasks_from_async) => {
-                  setProjectTasks(project_tasks_from_async);
-                  console.log("Project Tasks fetched.")
-                }
-              )
-              .catch((error) => {
-                console.error(`Could not get Task list: ${error}`);
-              });
-          } else {
-            console.log("Project list empty")
-          }
-          })
-        .catch((error) => {
-          console.error(`Could not get project list: ${error}`);
-        });
-    } else if (selectedProject && originalProject.id !== selectedProject.id) {
-      // New project selected from dropdown.
-      list_project_tasks(selectedProject.id)
-        .then((project_tasks_from_async) => {
-            setProjectTasks(project_tasks_from_async);
-          }
-        );
-    } else {
-      console.log("Fetching data NOT Required")
-    }
+        })
+      .catch((error) => {
+        console.error(`Could not get project list: ${error}`);
+      });
   }, []);
 
   function setprojectTasksInFunction(array) {
