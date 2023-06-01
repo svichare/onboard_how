@@ -1,0 +1,74 @@
+import React, {useState, useEffect} from 'react';
+import * as S from "./styles";
+
+import brain_simplify from '../../assets/brain_simplify.jpg'
+
+
+function ProjectTypeDropdown(props) {
+    console.log("Renderring ProjectDropDown");
+  
+    const [selectedOption, setSelectedOption] = useState(0);
+  
+    if (Array.isArray(props.projectTypes)) {
+      if ((selectedOption === 0) && (props.projectTypes.length > 0)) {
+        setSelectedOption(props.projectTypes[0]['id']);
+      }
+    }
+  
+    const handleOptionClick = (event) => {
+      setSelectedOption(event.target.value);
+      console.log("Setting option to : ");
+      console.log(event.target.value);
+    };
+  
+    return (
+        <S.ProjectDropDownSelect name="type" value={selectedOption} onChange={handleOptionClick}>
+        {Array.isArray(props.projectTypes) ? (
+          props.projectTypes.map((project, index) => (
+            <option key={project.id} value={project.id} >{project.name}</option>
+          ))
+        ) : null}
+        </S.ProjectDropDownSelect>
+    );
+  }
+
+export default function ProjectInput({setSelectedProject}) {
+    const [projectTypes, setProjectTypes] = useState([{name: "Mockproject1" , id:11}, {name: "Mockproject2", id:22}]);
+    
+    const [localSelectedProject, setLocalSelectedProject] = useState({
+        name: '',
+        type: '',
+        id: '',
+        // Add more form fields as needed
+      });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setLocalSelectedProject({
+            ...localSelectedProject,
+            [name]: value,
+        });
+    };
+
+      const handleSubmit = () => {
+        // Perform actions with the form values
+        console.log('localSelectedProject Data:', localSelectedProject);
+        setSelectedProject(localSelectedProject);
+      };
+
+return (
+  <S.Container>
+    <S.TopImage src={brain_simplify} alt="brain_simplify" />
+    <h1>Test your expertise on current project..</h1>
+    <S.ProjectNameInput name="name" value={localSelectedProject.name} type="text" placeholder="Project name" onChange={handleInputChange}/>
+    <p>Project type : </p>
+    <S.ProjectTypeDropDown name="type" value={localSelectedProject.type} placeholder="Project type.." onChange={handleInputChange}>
+        {Array.isArray(projectTypes) ? (
+        <ProjectTypeDropdown projectTypes={projectTypes} />
+        ) : null}
+    </S.ProjectTypeDropDown>
+    <p>  . </p>
+    <S.ProjectSelectSubmit type="button" onClick={handleSubmit}>Lets get started</S.ProjectSelectSubmit>
+  </S.Container>
+);
+}

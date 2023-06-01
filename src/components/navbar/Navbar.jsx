@@ -1,4 +1,4 @@
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo_redhat_blue.png';
 import './navbar.css';
@@ -14,7 +14,6 @@ const Navbar = () => {
         </div>
         <div className="gpt3__navbar-links_container">
           <p><a href="#home">Home</a></p>
-          <p><a href="#dashboard">Learning dashboard</a></p>
         </div>
         <div className="gpt3__navbar-sign">
           <p>Sign in</p>

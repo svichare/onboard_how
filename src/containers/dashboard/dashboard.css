@@ -1,83 +1,160 @@
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+
 .gpt3__dashboard {
-    max-width: 200px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .gpt3__dashboard-subitem-text {
-    font-size: 0.8rem;
-  }
-
-  .gpt3__dashboard_dropdown {
-    font-size: 0.8rem;
-  }
-
-  /* Auto generated output */
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-btn {
-    background-color: #f1f1f1;
-    color: black;
-    padding: 8px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #f1f1f1;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #ddd;
-    z-index: 1;
-  }
-  
-  .dropdown-menu li {
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: #ddd;
-  }
-
-  /* End of auto generated output */
-
-  /* Start sidebar entries */
-
-  .sidebar {
+    /* max-width: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.1); */
+    /* position: absolute; */
+    width: 255px;
     height: 100%;
-    width: 200px;
-    position: flex;
-    top: 0;
-    left: 0;
-    background-color: #f1f1f1;
-    overflow-x: hidden;
-    padding-top: 20px;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    padding: 8px 16px;
-    font-size: 20px;
-    color: #000;
-  }
-  
-  .sidebar li:hover {
-    background-color: #ddd;
-  }
+    left: 0px;
+    top: 0px;
 
+    /* sidebar / bg */
+    background: #363740;
+}
   
-  /* End sidebar entries */
+.gpt3__dashboard-subitem-text {
+  font-size: 0.8rem;
+}
+
+.gpt3__dashboard_dropdown {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  background-color: #32a5ab;
+}
+
+.gpt3__dashboard_dropdown select {
+  background-color: #32a5ab;
+  width: 255px;
+  left: 0px;
+  top: 0px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: 0.2px;
+  /* display: none; // hide original SELECT element: */
+}
+
+.gpt3__dashboard_dropdown select option{
+  background-color: #32a5ab;
+  width: 255px;
+  left: 0px;
+  top: 0px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: 0.2px;
+  /* display: none; // hide original SELECT element: */
+}
+
+.gpt3__dashboard_list {
+  /* position: absolute; */
+  width: 255px;
+  left: 0px;
+  top: 0px;
+  /* Regular/16px */
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+
+  letter-spacing: 0.2px;
+
+  /* Main/LightBlue */
+
+  color: #d5d5db;
+}
+
+.gpt3__dashboard_task_details {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* Auto generated output */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f1f1f1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.dropdown-menu li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #ddd;
+}
+
+/* End of auto generated output */
+
+/* Start sidebar entries */
+
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: flex;
+  top: 0;
+  left: 0;
+  background-color: #f1f1f1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 8px 16px;
+  font-size: 20px;
+  color: #000;
+}
+
+.sidebar li:hover {
+  background-color: #ddd;
+}
+
+
+/* End sidebar entries */

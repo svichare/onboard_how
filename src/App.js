@@ -1,18 +1,13 @@
 import React from 'react'
 import './App.css'
 
-import { Dashboard, Footer, Header } from './containers';
-import { Navbar } from './components';
+// import FirstAttempt from './pages/FirstAttempt';
+import TestSkills from './pages/TestSkills';
 
 
 const App = () => (
     <div className="App">
-      <div className="gradient__bg">
-        <Navbar />
-        <Header />
-        <Dashboard />
-        <Footer />
-      </div>
+        <TestSkills />
     </div>
   );
 

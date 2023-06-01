@@ -3,7 +3,9 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 2rem 6rem;
+    width: calc(100% - 262px);
+    padding: 12px 10px;  
+    padding-bottom: 50px;
 }
 
 .gpt3__navbar-links {
@@ -39,9 +41,9 @@
 .gpt3__navbar-sign p,
 .gpt3__navbar-menu_container p {
     color: #2b6091;
-    font-family: var(--font-family);
-    /* font-family: Spartan; */
-    font-weight: 500;
+    /* font-family: var(--font-family); */
+    font-family: Consolas, Arial, Helvetica, sans-serif;
+    font-weight: 100;
     font-size: 18px;
     line-height: 25px;
     text-transform: capitalize;

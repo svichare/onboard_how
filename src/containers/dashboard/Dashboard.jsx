@@ -24,10 +24,14 @@ async function list_projects() {
        variables: {
        },
     })
+    // For local testing.
+    if (response.data.allProjectTasks.length === 0) {
+      return [{name: "Mockproject1" , id:11}, {name: "Mockproject2", id:22}];
+    }
     return response.data.allProjectsPassQuery;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
-    return []
+    return [{name: "Mockproject1" , id:11}, {name: "Mockproject2", id:22}];
   }
 }
 
@@ -39,10 +43,16 @@ async function list_project_tasks(id) {
         projectId:id
       },
     })
+    // For local testing.
+    if (response.data.allProjectTasks.length === 0) {
+      return [{name: "MockprojectTask101", id:101},
+      {name: "MockprojectTask102", id:102}];
+    }
     return response.data.allProjectTasks;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
-    return []
+    return [{name: "MockprojectTask101", id:101},
+    {name: "MockprojectTask102", id:102}];
   }
 }
 
@@ -52,7 +62,7 @@ function ProjectDropdown(props) {
   const [selectedOption, setSelectedOption] = useState(0);
 
   if (Array.isArray(props.projects)) {
-    if ((selectedOption == 0) && (props.projects.length > 0)) {
+    if ((selectedOption === 0) && (props.projects.length > 0)) {
       setSelectedOption(props.projects[0]['id']);
     }
   }
@@ -69,15 +79,13 @@ function ProjectDropdown(props) {
   };
 
   return (
-    <div className="dropdown">
       <select value={selectedOption} onChange={handleOptionClick}>
       {Array.isArray(props.projects) ? (
         props.projects.map((project, index) => (
-          <option key={project.id} value={project.id}>{project.name}</option>
+          <option key={project.id} value={project.id} >{project.name}</option>
         ))
       ) : null}
       </select>
-    </div>
   );
 }
 
@@ -92,15 +100,25 @@ function TasksSidebar(props) {
             </ListItemText>
           </ListItem>
         ))}
-        </div>
+      </div>
+  );
+}
+
+function TaskDetails(props) {
+  console.log("Renderring task details");
+  return (
+      <div>
+        Task details will go here.
+      </div>
   );
 }
 
 function Dashboard({ items, depthStep, depth }) {
   console.log("Renderring Dashboard");
 
-  const [projects, setProjects] = useState([]);
-  const [projectTasks, setProjectTasks] = useState([]);
+  const [projects, setProjects] = useState([{name: "Mockproject1" , id:11}, {name: "Mockproject2", id:22}]);
+  const [projectTasks, setProjectTasks] = useState([{name: "MockprojectTask101", id:101},
+   {name: "MockprojectTask102", id:102}]);
 
   useEffect( () => {
     console.log("Dashboard useEffect Fetching data")
@@ -128,9 +146,6 @@ function Dashboard({ items, depthStep, depth }) {
       });
   }, []);
 
-  function setprojectTasksInFunction(array) {
-    setProjectTasks(array);
-  }
   return (
     <div className="gpt3__dashboard" id="dashboard">
       <div className="gpt3__dashboard_dropdown">
@@ -138,9 +153,14 @@ function Dashboard({ items, depthStep, depth }) {
           <ProjectDropdown projects={projects} setProjectTasks={setProjectTasks}/>
         ) : null}
       </div>
+      <div className="gpt3__dashboard_list">
       <List disablePadding dense>
         <TasksSidebar projectTasks={projectTasks}/>
       </List>
+      </div>
+      <div className="gpt3__dashboard_task_details">
+        <TaskDetails projectTasks={projectTasks}/>
+      </div>
     </div>
   );
 
