@@ -39,7 +39,7 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
       {
         ProjectTaskList.map((value, index) => (
           <S.SubListItem>
-          <S.SubItem onClick={() =>  {console.log("task sidebar clicked"); setSelectedTask(value)}} key={value.id}>{value.name}</S.SubItem>
+          <S.SubItem onClick={() => {console.log("task sidebar clicked"); setSelectedTask(value)}} key={value.id}>{value.name}</S.SubItem>
           </S.SubListItem>
         ))
       }

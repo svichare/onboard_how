@@ -1,8 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import * as S from "./styles";
 
+import { API } from '@aws-amplify/api'
+import { allProjectsPassQuery, allProjectTasks } from '../../graphql/queries'
+
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
+async function list_projects() {
+    try {
+      const response = await API.graphql({
+         query: allProjectsPassQuery,
+         variables: {
+         },
+      })
+      // For local testing.
+      if (response.data.allProjectsPassQuery.length === 0) {
+        return [{name: "Mockproject1FromFunction" , id:11}, {name: "Mockproject2FromFunction", id:22}];
+      }
+      return response.data.allProjectsPassQuery;
+    } catch (error) {
+      console.error(`Cought error in function : ${error}`);
+      return [{name: "Mockproject1FromFunction" , id:11}, {name: "Mockproject2FromFunction", id:22}];
+    }
+  }
 
 function ProjectTypeDropdown(props) {
     console.log("Renderring ProjectDropDown");
@@ -33,7 +53,9 @@ function ProjectTypeDropdown(props) {
   }
 
 export default function ProjectInput({setSelectedProject}) {
-    const [projectTypes, setProjectTypes] = useState([{name: "Mockproject1" , id:11}, {name: "Mockproject2", id:22}]);
+    const [projectTypes, setProjectTypes] =
+    useState([{name: "Mockproject1" , id:11, description:"Mockproject1 description"},
+     {name: "Mockproject2", id:22, description:"Mockproject1 description"}]);
     
     const [localSelectedProject, setLocalSelectedProject] = useState({
         name: '',
@@ -56,13 +78,19 @@ export default function ProjectInput({setSelectedProject}) {
         setSelectedProject(localSelectedProject);
       };
 
+      useEffect( () => {
+        list_projects()
+      .then((projects_from_async) => {
+        setProjectTypes(projects_from_async);
+      });
+    }, []);
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
     <h1>Test your expertise on current project..</h1>
-    <S.ProjectNameInput name="name" value={localSelectedProject.name} type="text" placeholder="Project name" onChange={handleInputChange}/>
+    <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
     <p>Project type : </p>
-    <S.ProjectTypeDropDown name="type" value={localSelectedProject.type} placeholder="Project type.." onChange={handleInputChange}>
+    <S.ProjectTypeDropDown name="type" placeholder="Project type.." onChange={handleInputChange}>
         {Array.isArray(projectTypes) ? (
         <ProjectTypeDropdown projectTypes={projectTypes} />
         ) : null}
