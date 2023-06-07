@@ -4,41 +4,30 @@ import * as S from "./taskDetailsStyles";
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
 import { API } from '@aws-amplify/api'
-import { allProjectsPassQuery, allProjectTasks, allTaskActionItems } from '../../graphql/queries'
+import { allTaskActionItems, taskDetails } from '../../graphql/queries'
 
 async function fetch_task_details(id) {
     try {
       console.log("Requesting data for task : ", id);
 
       const response = await API.graphql({
-        query: allProjectTasks, // tasksDetails,
+        query: taskDetails,
         variables: {
-          projectId:id,
-          taskId:id
+          taskId: id
         },
       })
       // For local testing.
-      if (response.data.allProjectTasks.length === 0) {
+      if (typeof response.data.taskDetails === "undefined") {
         console.log("Task data not recieved. Sending mock task data now");
         return {
             name: "MockprojectTask101",
             id:101,
             title: "Mock task title 101.",
             description: "This is the mock description of the mock task 101. This field will describe the task. It will show the importance",
-            subtasks: [
-                {
-                    name: "Have you played with an e2e test setup?",
-                    type: "bool",
-                    rank: "1"},
-                {
-                    name: "Add links to the e2e setup with any other required information.",
-                    type: "details",
-                    rank: "2"},
-            ],
         };
       }
       console.log("Sending task data received from backend");
-      return response.data.allProjectTasks;
+      return response.data.taskDetails;
     } catch (error) {
       console.error(`Cought error in function : ${error}`);
       console.log("Sending mock data since the error received");
@@ -47,16 +36,6 @@ async function fetch_task_details(id) {
         id:101,
         title: "Mock task title 101.",
         description: "This is the mock description of the mock task 101. This field will describe the task. It will show the importance",
-        subtasks: [
-            {
-                name: "Have you played with an e2e test setup?",
-                type: "bool",
-                rank: "1"},
-            {
-                name: "Add links to the e2e setup with any other required information.",
-                type: "details",
-                rank: "2"},
-        ],
     };
     }
   }
@@ -103,7 +82,7 @@ async function fetch_task_details(id) {
     }
   }
 
-function FetchTaskDetails(taskId, setSelectedLocalTask, setSelectedLocalActionItems) {
+function FetchTaskDetailsFunc(taskId, setSelectedLocalTask, setSelectedLocalActionItems) {
     console.log("Request to fetch task details received.");
     fetch_task_details(taskId).then((task_details_from_async) => {
       setSelectedLocalTask(task_details_from_async);
@@ -143,31 +122,27 @@ function FormatQuestions(props) {
   );
 }
 
-export default function TaskDetails({selectedTask}) {
+export default function FetchTaskDetails({selectedTask}) {
 
-  const [selectedLocalTask, setSelectedLocalTask] = useState({name: "Initialized value",// Dont populate, used in the check below.
+  const [selectedLocalTask, setSelectedLocalTask] = useState([{name: "Initialized value",
   id:1,
-  description: "Description default task set in the local function.",
-  subtasks: [{
-    name: "default subtask name",
-    type: "bool",
-    rank: "1"}]});
+  description: "Description default task set in the local function."}]);
   
-  const [selectedLocalActionItems, setSelectedLocalActionItems] = useState([{name: "Initialized value",// Dont populate, used in the check below.
+  const [selectedLocalActionItems, setSelectedLocalActionItems] = useState([{name: "Initialized value",
   id:1,
   description: "Description default task set in the local function.",
   actionType: "Tick"}]);
 
   useEffect( () => {
-    FetchTaskDetails(selectedTask.id, setSelectedLocalTask, setSelectedLocalActionItems);
+    FetchTaskDetailsFunc(selectedTask.id, setSelectedLocalTask, setSelectedLocalActionItems);
   }, [selectedTask.id]);
 
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
-    <h1>{selectedLocalTask.name}</h1>
-    <p> {selectedLocalTask.description} </p>
-
+    <h1> {selectedLocalTask[0].name} </h1>
+    <p> {selectedLocalTask[0].description} </p>
+    
     <p> <br></br> </p>
     <FormatQuestions subtasks={selectedLocalActionItems} />
     <p> <br></br> </p>

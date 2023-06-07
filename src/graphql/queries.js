@@ -28,6 +28,15 @@ export const allProjectTasks = /* GraphQL */ `
     }
   }
 `;
+export const taskDetails = /* GraphQL */ `
+  query TaskDetails($taskId: ID) {
+    taskDetails(taskId: $taskId) {
+      id
+      name
+      description
+    }
+  }
+`;
 export const allTaskActionItems = /* GraphQL */ `
   query AllTaskActionItems($taskId: ID) {
     allTaskActionItems(taskId: $taskId) {

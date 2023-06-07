@@ -42,10 +42,11 @@ function ProjectTypeDropdown(props) {
     };
   
     return (
-        <S.ProjectDropDownSelect name="id" value={selectedOption} onChange={handleOptionClick}>
+        <S.ProjectDropDownSelect name="id" onChange={handleOptionClick}>
+        <option value="">Select an option</option>
         {Array.isArray(props.projectTypes) ? (
           props.projectTypes.map((project, index) => (
-            <option key={project.id} value={project.id} >{project.name}</option>
+            <option value={project.id} >{project.name}</option>
           ))
         ) : null}
         </S.ProjectDropDownSelect>
