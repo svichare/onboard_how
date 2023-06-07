@@ -42,7 +42,7 @@ function ProjectTypeDropdown(props) {
     };
   
     return (
-        <S.ProjectDropDownSelect name="type" value={selectedOption} onChange={handleOptionClick}>
+        <S.ProjectDropDownSelect name="id" value={selectedOption} onChange={handleOptionClick}>
         {Array.isArray(props.projectTypes) ? (
           props.projectTypes.map((project, index) => (
             <option key={project.id} value={project.id} >{project.name}</option>
@@ -60,12 +60,13 @@ export default function ProjectInput({setSelectedProject}) {
     const [localSelectedProject, setLocalSelectedProject] = useState({
         name: '',
         type: '',
-        id: '',
+        id: 0,
         // Add more form fields as needed
       });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        console.log("Setting : ", name , " to value : ", value);
         setLocalSelectedProject({
             ...localSelectedProject,
             [name]: value,
@@ -90,7 +91,7 @@ return (
     <h1>Test your expertise on current project..</h1>
     <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
     <p>Project type : </p>
-    <S.ProjectTypeDropDown name="type" placeholder="Project type.." onChange={handleInputChange}>
+    <S.ProjectTypeDropDown name="id" placeholder="Project type.." onChange={handleInputChange}>
         {Array.isArray(projectTypes) ? (
         <ProjectTypeDropdown projectTypes={projectTypes} />
         ) : null}

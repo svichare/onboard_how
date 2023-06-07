@@ -28,3 +28,13 @@ export const allProjectTasks = /* GraphQL */ `
     }
   }
 `;
+export const allTaskActionItems = /* GraphQL */ `
+  query AllTaskActionItems($taskId: ID) {
+    allTaskActionItems(taskId: $taskId) {
+      id
+      name
+      description
+      actionType
+    }
+  }
+`;

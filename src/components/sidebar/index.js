@@ -18,19 +18,24 @@ async function list_project_tasks(id) {
     })
     // For local testing.
     if (response.data.allProjectTasks.length === 0) {
-      return [{name: "MockprojectTask101", id:101},
-      {name: "MockprojectTask102", id:102}];
+      return [{name: "MockprojectTask101FromFunction", id:101},
+      {name: "MockprojectTask102FromFunction", id:102}];
     }
     return response.data.allProjectTasks;
   } catch (error) {
     console.error(`Cought error in function : ${error}`);
-    return [{name: "MockprojectTask101", id:101},
-    {name: "MockprojectTask102", id:102}];
+    return [{name: "MockprojectTask101FromFunction", id:101},
+    {name: "MockprojectTask102FromFunction", id:102}];
   }
 }
 
 
 function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
+  if (typeof ProjectTaskList === "undefined") {
+    // nothing to do as project not selected.
+    console.log("Undefined project tasklist returning without fuss. XXXXXXX");
+    return;
+  }
   if (!ProjectTaskList || ProjectTaskList.length === 0) {
     return <><S.SubList><S.SubItem href="#">Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
   }
@@ -47,7 +52,25 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
   );
 }
 
-export default function NavBar({ProjectTaskList, setSelectedTask}) {
+export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProject}) {
+  const [localTaskList, setLocalTaskList] = useState([{
+    name: '',
+    type: '',
+    id: '',
+  }]);
+
+  useEffect( () => {
+    if (typeof selectedProject === "undefined") {
+        // nothing to do as project not selected.
+        console.log("Undefined project received. XXXXXXX");
+        return;
+    }
+    console.log("Valid project received. XXXXXXX ");
+    list_project_tasks(selectedProject.id)
+    .then((tasks_from_async) => {
+      setLocalTaskList(tasks_from_async);
+    });
+  }, [selectedProject]);
 
   console.log("Received project task list : ", ProjectTaskList);
   return (
@@ -76,7 +99,7 @@ export default function NavBar({ProjectTaskList, setSelectedTask}) {
               Test Topics
             </S.Item>
             <img src={ArrowDown} alt="arrow" />
-            <DisplayProjectTaskList ProjectTaskList={ProjectTaskList} setSelectedTask={setSelectedTask}/>
+            <DisplayProjectTaskList ProjectTaskList={localTaskList} setSelectedTask={setSelectedTask}/>
            </S.ListItem>
         </S.List>
       </S.Container>

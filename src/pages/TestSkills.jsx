@@ -6,7 +6,7 @@ import * as S from "./testSkillStyles";
 
 
 export default function TestSkills() {
-  const [selectedProject, setSelectedProject] = useState({name: "" , type: "", id:""});
+  const [selectedProject, setSelectedProject] = useState({name: "" , type: "", id:0});
   const [selectedTask, setSelectedTask] = useState({name: "",// Dont populate, used in the check below.
   id:1,
   title: "default task title", 
@@ -32,14 +32,15 @@ export default function TestSkills() {
 
         default:
             renderedPage = <TaskDetails selectedTask={selectedTask} />;
-            renderedSidebar = <Sidebar ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
+            renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
         break;
     }
     
   } else if (selectedProject.name.length > 0) {
     // Get list of project task list if required. Sending MockList for now.
     renderedPage = <ProjectDetails selectedProject={selectedProject} />;
-    renderedSidebar = <Sidebar ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
+    console.log("Sending project ID: XXXX ", selectedProject.id);
+    renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask}/>;
   } else {
     // Project not selected yet.
     renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;
