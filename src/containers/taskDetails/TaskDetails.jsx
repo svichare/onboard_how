@@ -99,7 +99,7 @@ function FormatQuestions(props) {
     props.subtasks.forEach((task, index) => {
       result.push(
         <p><br></br></p>,
-        <p key={index}>{task.description}</p>
+        <p key={index}> .. {task.description}</p>
       );
       switch (task.actionType) {
         case 'Tick': 
@@ -111,6 +111,10 @@ function FormatQuestions(props) {
         break;
         case 'details':
           result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
+        break;
+        case '':
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
+        break;
       }
     });
   }
@@ -142,8 +146,9 @@ return (
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
     <h1> {selectedLocalTask[0].name} </h1>
     <p> {selectedLocalTask[0].description} </p>
-    
     <p> <br></br> </p>
+
+    <p>Answer the following. I ..</p>
     <FormatQuestions subtasks={selectedLocalActionItems} />
     <p> <br></br> </p>
   </S.Container>
