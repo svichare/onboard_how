@@ -9,6 +9,6 @@ export const ResultContainer = styled.div`
 `;
 
 export const ResultTopImage = styled.img`
-width: 50%;
-height: 25%;
+width: 125%;
+height: 125%;
 `;
