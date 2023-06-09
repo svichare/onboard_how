@@ -27,6 +27,10 @@ export const ProfileImg = styled.div`
 `;
 export const ProfileInfo = styled.div`
   margin-left: 11px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const Email = styled.div`
   color: #696d8c;
@@ -79,6 +83,9 @@ export const SubList = styled.ul`
 export const SubListItem = styled.li`
   width: 100%;
   padding: 5px 0;
+  &.dropdown {
+    position: relative;
+  }
 `;
 export const SubItem = styled.a`
   display: block;
@@ -90,15 +97,9 @@ export const SubItem = styled.a`
     color: #060213;
     font-weight: 500;
     position: relative;
+  }
 
-    :before {
-      content: "";
-      position: absolute;
-      width: 1px;
-      height: 100%;
-      left: 0;
-      top: 0;
-      background: #ecebf5;
-    }
+  &:hover {
+    cursor: pointer;
   }
 `;
