@@ -31,14 +31,14 @@ async function list_project_tasks(id) {
 
 
 function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
-  if (typeof ProjectTaskList === "undefined") {
+  if (typeof ProjectTaskList === "undefined"|| ProjectTaskList.length === 0 ) {
     // nothing to do as project not selected.
     console.log("Undefined project tasklist returning without fuss. XXXXXXX");
-    return;
+    return <><S.SubList><S.SubItem href="#" key={0}>Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
   }
-  if (!ProjectTaskList || ProjectTaskList.length === 0) {
-    return <><S.SubList><S.SubItem href="#">Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
-  }
+  // if (typeof ProjectTaskList === "undefined" || ProjectTaskList.length === 0) {
+  //   return <><S.SubList><S.SubItem href="#">Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
+  // }
   return (
     <S.SubList>
       {
@@ -53,11 +53,13 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
 }
 
 export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProject}) {
-  const [localTaskList, setLocalTaskList] = useState([{
-    name: '',
-    type: '',
-    id: '',
-  }]);
+  const [localTaskList, setLocalTaskList] = useState([
+  //   {
+  //   name: '',
+  //   type: '',
+  //   id: '',
+  // }
+]);
 
   useEffect( () => {
     if (typeof selectedProject === "undefined") {
@@ -79,7 +81,7 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
         <S.Profile>
           <S.ProfileImg></S.ProfileImg>
           <S.ProfileInfo onClick={() => {console.log("Top left image clicked.");
-              if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'Home', id:999});}}>
+              if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'Home', id:999}); setLocalTaskList([]);}}>
             <h2 className="text-base">Onboard.how</h2>
             <S.Email className="text-sm">svichare@onboard.how</S.Email>
           </S.ProfileInfo>
