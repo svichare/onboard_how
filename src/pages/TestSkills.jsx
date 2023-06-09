@@ -21,8 +21,6 @@ export default function TestSkills() {
   let renderedSidebar;
 
   if (selectedTask.name.length > 0) {
-    // Fetch the details of the task from DB.
-    // FetchTaskDetails(selectedTask.id, {setSelectedTask});
     switch (selectedTask.name) {
         case 'ResultDashboard': 
             // Show result dashboard here.
@@ -30,11 +28,26 @@ export default function TestSkills() {
             renderedSidebar = <Sidebar ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
         break;
 
-        default:
-            renderedPage = <TaskDetails selectedTask={selectedTask} />;
-            renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
-        break;
-    }
+        case 'Home':
+            // Show result dashboard here.
+            setSelectedProject({name: "" , type: "", id:0}) ;
+            setSelectedTask({name: "",// Dont populate, used in the check below.
+            id:1,
+            title: "default task title", 
+            description: "default task set in the main function.",
+            subtasks: [{
+                name: "default subtask name",
+                type: "bool",
+                rank: "1"}]});
+                renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;
+                renderedSidebar = <Sidebar ProjectTaskList={[]} />;
+            break;
+        
+            default:
+                renderedPage = <TaskDetails selectedTask={selectedTask} />;
+                renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
+            break;
+        }
     
   } else if (selectedProject.name.length > 0) {
     // Get list of project task list if required. Sending MockList for now.

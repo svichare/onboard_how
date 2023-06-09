@@ -78,7 +78,8 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
       <S.Container>
         <S.Profile>
           <S.ProfileImg></S.ProfileImg>
-          <S.ProfileInfo>
+          <S.ProfileInfo onClick={() => {console.log("Top left image clicked.");
+              if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'Home', id:999});}}>
             <h2 className="text-base">Onboard.how</h2>
             <S.Email className="text-sm">svichare@onboard.how</S.Email>
           </S.ProfileInfo>

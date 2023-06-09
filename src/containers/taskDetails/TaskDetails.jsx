@@ -144,8 +144,8 @@ export default function FetchTaskDetails({selectedTask}) {
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
-    <h1> {selectedLocalTask[0].name} </h1>
-    <p> {selectedLocalTask[0].description} </p>
+    <h1> {Array.isArray(selectedLocalTask) && selectedLocalTask.length > 0 ? selectedLocalTask[0].name : ""} </h1>
+    <p>  {Array.isArray(selectedLocalTask) && selectedLocalTask.length > 0 ? selectedLocalTask[0].description : ""} </p>
     <p> <br></br> </p>
 
     <p>Answer the following. I ..</p>
