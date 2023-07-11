@@ -6,7 +6,7 @@ import * as S from "./testSkillStyles";
 
 
 export default function TestSkills() {
-  const [selectedProject, setSelectedProject] = useState({name: "" , type: "", id:0});
+  const [selectedProject, setSelectedProject] = useState({name: "", id:0});
   const [selectedTask, setSelectedTask] = useState({name: "",// Dont populate, used in the check below.
   id:1,
   title: "default task title", 

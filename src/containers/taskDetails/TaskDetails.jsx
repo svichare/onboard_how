@@ -4,7 +4,7 @@ import * as S from "./taskDetailsStyles";
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
 import { API } from '@aws-amplify/api'
-import { allTaskActionItems, taskDetails } from '../../graphql/queries'
+import { allTaskActionItems, taskDetails, userActionItemDetails } from '../../graphql/queries'
 
 async function fetch_task_details(id) {
     try {
@@ -82,12 +82,49 @@ async function fetch_task_details(id) {
     }
   }
 
+  async function fetch_actionItem_responses(actionItem_list_from_async) {
+    try {
+      console.log("Requesting responses for these many actions : ", actionItem_list_from_async.length);
+
+      const response = await API.graphql({
+        query: userActionItemDetails,
+        variables: {
+          userProjectId:'hello_world_:1:svichare@onboard.ai',
+          userTaskId:2,
+          userActionItemId:5,
+        },
+      })
+      // For local testing.
+      // if (response.data.length === 0) {
+      //   console.log("ActionItem Response data not recieved. Sending mock task data now");
+      //   console.log("Data is : " + response.data.actionItemDetails);
+      //   return actionItem_list_from_async;
+      // }
+      console.log("Sending ActionItem responses received from backend.");
+      console.log("Data : " + response.data);
+      // console.log("Data : " + response.data[0]);
+      
+      console.log("Date length : " + response.data.userActionItemDetails.length
+      +  "  Data is : " + response.data.userActionItemDetails[0].taskId
+      + " : " + response.data.userActionItemDetails[0].actionItemId
+      + " : " + response.data.userActionItemDetails[0].response);
+
+      return actionItem_list_from_async;
+    } catch (error) {
+      console.error('Cought error in function :', error.stack);
+      console.log("Sending responseless data since error received");
+      return actionItem_list_from_async;
+    }
+  }
+
 function FetchTaskDetailsFunc(taskId, setSelectedLocalTask, setSelectedLocalActionItems) {
     console.log("Request to fetch task details received.");
     fetch_task_details(taskId).then((task_details_from_async) => {
       setSelectedLocalTask(task_details_from_async);
       fetch_actionItem_details(taskId).then((actionItem_details_from_async) => {
-        setSelectedLocalActionItems(actionItem_details_from_async);
+        fetch_actionItem_responses(actionItem_details_from_async).then((actionItem_with_responses) => {
+          setSelectedLocalActionItems(actionItem_with_responses);
+        });
       });
     });
 }
@@ -135,7 +172,8 @@ export default function FetchTaskDetails({selectedTask}) {
   const [selectedLocalActionItems, setSelectedLocalActionItems] = useState([{name: "Initialized value",
   id:1,
   description: "Description default task set in the local function.",
-  actionType: "Tick"}]);
+  actionType: "Tick",
+  response: "no"}]);
 
   useEffect( () => {
     FetchTaskDetailsFunc(selectedTask.id, setSelectedLocalTask, setSelectedLocalActionItems);

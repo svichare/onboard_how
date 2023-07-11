@@ -60,14 +60,18 @@ export default function ProjectInput({setSelectedProject}) {
     
     const [localSelectedProject, setLocalSelectedProject] = useState({
         name: '',
-        type: '',
         id: 0,
         // Add more form fields as needed
       });
 
+    const [userEmail, setUserEmail] = useState('');
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         console.log("Setting : ", name , " to value : ", value);
+        if (name === 'email') {
+          setUserEmail(value);
+          return;
+        }
         setLocalSelectedProject({
             ...localSelectedProject,
             [name]: value,
@@ -78,6 +82,9 @@ export default function ProjectInput({setSelectedProject}) {
         // Perform actions with the form values
         console.log('localSelectedProject Data:', localSelectedProject);
         setSelectedProject(localSelectedProject);
+        // Create entry in the documentDB if requierd.
+        let id = localSelectedProject.name + ':' + localSelectedProject.id + ':' + userEmail;
+        console.log("Setting project ID to : " + id );
       };
 
       useEffect( () => {
@@ -91,13 +98,16 @@ return (
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
     <h1>Test your expertise on current project..</h1>
     <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
+    <br />
     <p>Project type : </p>
     <S.ProjectTypeDropDown name="id" placeholder="Project type.." onChange={handleInputChange}>
         {Array.isArray(projectTypes) ? (
         <ProjectTypeDropdown projectTypes={projectTypes} />
         ) : null}
     </S.ProjectTypeDropDown>
-    <p>  . </p>
+    <br/>
+    <S.EmailInput name="email" type="text" placeholder="Your email address (to sell on darkweb)" onChange={handleInputChange}/>
+    <br/>
     <S.ProjectSelectSubmit type="button" onClick={handleSubmit}>Lets get started</S.ProjectSelectSubmit>
   </S.Container>
 );

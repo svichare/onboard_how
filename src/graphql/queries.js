@@ -47,3 +47,42 @@ export const allTaskActionItems = /* GraphQL */ `
     }
   }
 `;
+export const userProjectDetails = /* GraphQL */ `
+  query UserProjectDetails($userProjectId: ID) {
+    userProjectDetails(userProjectId: $userProjectId) {
+      id
+      name
+      taskResponses {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
+export const userTaskDetails = /* GraphQL */ `
+  query UserTaskDetails($userProjectId: ID, $userTaskId: ID) {
+    userTaskDetails(userProjectId: $userProjectId, userTaskId: $userTaskId) {
+      taskId
+      actionItemId
+      response
+    }
+  }
+`;
+export const userActionItemDetails = /* GraphQL */ `
+  query UserActionItemDetails(
+    $userProjectId: ID
+    $userTaskId: ID
+    $userActionItemId: ID
+  ) {
+    userActionItemDetails(
+      userProjectId: $userProjectId
+      userTaskId: $userTaskId
+      userActionItemId: $userActionItemId
+    ) {
+      taskId
+      actionItemId
+      response
+    }
+  }
+`;

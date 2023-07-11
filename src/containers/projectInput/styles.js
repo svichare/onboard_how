@@ -20,6 +20,13 @@ export const ProjectNameInput = styled.input`
   background-color: #bbeff2;
 `;
 
+export const EmailInput = styled.input`
+  background: #fafafc;
+  width: 255px;
+  height: 24px;
+  background-color: #bbeff2;
+`;
+
 export const ProjectTypeDropDown = styled.div`
 font-family: 'Mulish';
   font-style: normal;
