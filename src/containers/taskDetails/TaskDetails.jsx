@@ -4,7 +4,7 @@ import * as S from "./taskDetailsStyles";
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
 import { API } from '@aws-amplify/api'
-import { allTaskActionItems, taskDetails, userActionItemDetails } from '../../graphql/queries'
+import { allTaskActionItems, taskDetails, userActionItemsDetails } from '../../graphql/queries'
 
 async function fetch_task_details(id) {
     try {
@@ -82,36 +82,72 @@ async function fetch_task_details(id) {
     }
   }
 
-  async function fetch_actionItem_responses(actionItem_list_from_async) {
+  async function fetch_actionItem_responses(taskId, actionItem_list_from_async) {
+    var results_with_responses = [];
+    // Create a request array.
+    var actionitem_request = [];
+    console.log("Creating request : ");
+    for (const actionItem of actionItem_list_from_async) {
+      var cur_actionitem_request = {
+        userProjectId: "hello_world_perfect_format_ints:1:svichare@onboard.ai",
+        taskId: 0,
+        actionItemId: 0
+      };
+      cur_actionitem_request.userProjectId = "hello_world_perfect_format_ints:1:svichare@onboard.ai";
+      cur_actionitem_request.taskId = taskId;
+      cur_actionitem_request.actionItemId = actionItem.id;
+      actionitem_request.push(cur_actionitem_request);
+      console.log(cur_actionitem_request);
+    }
+
+    var actionitem_list_as_array = {
+      actions : actionitem_request
+    };
     try {
       console.log("Requesting responses for these many actions : ", actionItem_list_from_async.length);
+      const variables_object = {
+        userProjectId:"hello_world_perfect_format_ints:1:svichare@onboard.ai",
+        userActionItemsInput: actionitem_list_as_array
+      };
+      console.log("Request : ");
+      console.log(variables_object);
 
       const response = await API.graphql({
-        query: userActionItemDetails,
-        variables: {
-          userProjectId:'hello_world_:1:svichare@onboard.ai',
-          userTaskId:2,
-          userActionItemId:5,
-        },
+        query: userActionItemsDetails, 
+        variables: variables_object,
       })
-      // For local testing.
-      // if (response.data.length === 0) {
-      //   console.log("ActionItem Response data not recieved. Sending mock task data now");
-      //   console.log("Data is : " + response.data.actionItemDetails);
-      //   return actionItem_list_from_async;
-      // }
-      console.log("Sending ActionItem responses received from backend.");
-      console.log("Data : " + response.data);
-      // console.log("Data : " + response.data[0]);
-      
-      console.log("Date length : " + response.data.userActionItemDetails.length
-      +  "  Data is : " + response.data.userActionItemDetails[0].taskId
-      + " : " + response.data.userActionItemDetails[0].actionItemId
-      + " : " + response.data.userActionItemDetails[0].response);
 
-      return actionItem_list_from_async;
+      console.log("Sending ActionItem responses received from backend.");
+      console.log("Data length : " + response.data.userActionItemsDetails.length);
+      
+      // +  "  Data is : " + response.data.userActionItemsDetails[0].taskId
+      // + " : " + response.data.userActionItemsDetails[0].actionItemId
+      // + " : " + response.data.userActionItemsDetails[0].response);
+      if (response.data.userActionItemsDetails.length == 0) {
+        return actionItem_list_from_async;
+      } else {
+        console.log("Data details : " +  "  Data is : " + response.data.userActionItemsDetails[0].taskId
+        + " : " + response.data.userActionItemsDetails[0].actionItemId
+        + " : " + response.data.userActionItemsDetails[0].response);
+      }
+
+      for (const actionItem of actionItem_list_from_async) {
+        var cur_action = actionItem;
+        const matchingEntry = response.data.userActionItemsDetails.find(entry => 
+          entry.actionItemId == cur_action.id
+        );
+        if (matchingEntry) {
+          console.log("Found matching entry for : " + cur_action.id + "  including response : " + matchingEntry.response);
+          cur_action.response = matchingEntry.response;
+        } else {
+          console.log("DID NOT find matching entry for : " + cur_action.id  + " actionItem.id : " + actionItem.id);
+        }
+
+        results_with_responses.push(cur_action);
+      }
+      return results_with_responses;
     } catch (error) {
-      console.error('Cought error in function :', error.stack);
+      console.error('Cought error in function :', error.message);
       console.log("Sending responseless data since error received");
       return actionItem_list_from_async;
     }
@@ -122,7 +158,7 @@ function FetchTaskDetailsFunc(taskId, setSelectedLocalTask, setSelectedLocalActi
     fetch_task_details(taskId).then((task_details_from_async) => {
       setSelectedLocalTask(task_details_from_async);
       fetch_actionItem_details(taskId).then((actionItem_details_from_async) => {
-        fetch_actionItem_responses(actionItem_details_from_async).then((actionItem_with_responses) => {
+        fetch_actionItem_responses(taskId, actionItem_details_from_async).then((actionItem_with_responses) => {
           setSelectedLocalActionItems(actionItem_with_responses);
         });
       });
@@ -141,16 +177,27 @@ function FormatQuestions(props) {
       switch (task.actionType) {
         case 'Tick': 
           result.push(<div class="buttons">
-          <input type="radio" name={task.name + "_choice"} value="yes" />  Yes 
-          <input type="radio" name={task.name + "_choice"} value="no" />  No 
-          <input type="radio" name={task.name + "_choice"} value="na" />  NA
+          <input type="radio" name={task.name + "_choice"} value="yes" defaultChecked={task.response == "yes"} onChange={(e) => {
+            task.response = e.target.value;
+          }}/>  Yes 
+          <input type="radio" name={task.name + "_choice"} value="no"  defaultChecked={task.response == "no"} onChange={(e) => {
+            task.response = e.target.value;
+          }} />  No 
+          <input type="radio" name={task.name + "_choice"} value="na" defaultChecked={task.response == "na"} onChange={(e) => {
+            task.response = e.target.value;
+          }} />  NA
         </div>);
         break;
         case 'details':
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
+          // result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .." value={task.response} onChange={(e) => {
+            task.response = e.target.value;
+          }}></S.TextInput>);
         break;
         case '':
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."  value={task.response} onChange={(e) => {
+            task.response = e.target.value;
+          }}></S.TextInput>);
         break;
       }
     });
@@ -176,6 +223,8 @@ export default function FetchTaskDetails({selectedTask}) {
   response: "no"}]);
 
   useEffect( () => {
+    // Clear old values of actionItem list.
+    setSelectedLocalActionItems([]);
     FetchTaskDetailsFunc(selectedTask.id, setSelectedLocalTask, setSelectedLocalActionItems);
   }, [selectedTask.id]);
 

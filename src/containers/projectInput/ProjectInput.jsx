@@ -85,6 +85,7 @@ export default function ProjectInput({setSelectedProject}) {
         // Create entry in the documentDB if requierd.
         let id = localSelectedProject.name + ':' + localSelectedProject.id + ':' + userEmail;
         console.log("Setting project ID to : " + id );
+        // Send create command if required.
       };
 
       useEffect( () => {
@@ -106,7 +107,7 @@ return (
         ) : null}
     </S.ProjectTypeDropDown>
     <br/>
-    <S.EmailInput name="email" type="text" placeholder="Your email address (to sell on darkweb)" onChange={handleInputChange}/>
+    <S.EmailInput name="email" type="text" placeholder="Your email address (optional, not used yet)" onChange={handleInputChange}/>
     <br/>
     <S.ProjectSelectSubmit type="button" onClick={handleSubmit}>Lets get started</S.ProjectSelectSubmit>
   </S.Container>

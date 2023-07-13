@@ -86,3 +86,18 @@ export const userActionItemDetails = /* GraphQL */ `
     }
   }
 `;
+export const userActionItemsDetails = /* GraphQL */ `
+  query UserActionItemsDetails(
+    $userProjectId: String
+    $userActionItemsInput: UserActionItemsListInput
+  ) {
+    userActionItemsDetails(
+      userProjectId: $userProjectId
+      userActionItemsInput: $userActionItemsInput
+    ) {
+      taskId
+      actionItemId
+      response
+    }
+  }
+`;
