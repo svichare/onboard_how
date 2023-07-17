@@ -190,12 +190,12 @@ function FormatQuestions(props) {
         break;
         case 'details':
           // result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .." value={task.response} onChange={(e) => {
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .." defaultValue={task.response} onChange={(e) => {
             task.response = e.target.value;
           }}></S.TextInput>);
         break;
         case '':
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."  value={task.response} onChange={(e) => {
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."  defaultValue={task.response} onChange={(e) => {
             task.response = e.target.value;
           }}></S.TextInput>);
         break;

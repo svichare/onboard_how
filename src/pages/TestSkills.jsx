@@ -6,7 +6,7 @@ import * as S from "./testSkillStyles";
 
 
 export default function TestSkills() {
-  const [selectedProject, setSelectedProject] = useState({name: "", id:0});
+  const [selectedProject, setSelectedProject] = useState({name: "", typeId:"0", uniqueId:""});
   const [selectedTask, setSelectedTask] = useState({name: "",// Dont populate, used in the check below.
   id:1,
   title: "default task title", 
@@ -16,7 +16,7 @@ export default function TestSkills() {
     type: "bool",
     rank: "1"}]});
 
-  const [MockProjectList] = useState([{name: "MockProjectTask101", id:101}, {name: "MockProjectTask102", id:102}]);
+  const [MockProjectTypeList] = useState([{name: "MockProjectType01", id:101}, {name: "MockProjectType102", id:102}]);
   let renderedPage;
   let renderedSidebar;
 
@@ -25,11 +25,10 @@ export default function TestSkills() {
         case 'ResultDashboard': 
             // Show result dashboard here.
             renderedPage = <ResultDashboard />;
-            renderedSidebar = <Sidebar ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
+            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
         break;
 
         case 'Home':
-            // Show result dashboard here.
             setSelectedProject({name: "" , type: "", id:0}) ;
             setSelectedTask({name: "",// Dont populate, used in the check below.
             id:1,
@@ -42,18 +41,18 @@ export default function TestSkills() {
                 renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;
                 renderedSidebar = <Sidebar ProjectTaskList={[]} />;
             break;
-        
+
             default:
                 renderedPage = <TaskDetails selectedTask={selectedTask} />;
-                renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask} />;
+                renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
             break;
         }
     
   } else if (selectedProject.name.length > 0) {
-    // Get list of project task list if required. Sending MockList for now.
+    // Get list of project task list if required.
     renderedPage = <ProjectDetails selectedProject={selectedProject} />;
-    console.log("Sending project ID: XXXX ", selectedProject.id);
-    renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectList} setSelectedTask={setSelectedTask}/>;
+    console.log("Sending project ID: XXXX ", selectedProject.typeId);
+    renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
   } else {
     // Project not selected yet.
     renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;

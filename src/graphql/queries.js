@@ -69,16 +69,14 @@ export const userTaskDetails = /* GraphQL */ `
     }
   }
 `;
-export const userActionItemDetails = /* GraphQL */ `
-  query UserActionItemDetails(
-    $userProjectId: ID
-    $userTaskId: ID
-    $userActionItemId: ID
+export const userActionItemsDetails = /* GraphQL */ `
+  query UserActionItemsDetails(
+    $userProjectId: String
+    $userActionItemsInput: UserActionItemsListInput
   ) {
-    userActionItemDetails(
+    userActionItemsDetails(
       userProjectId: $userProjectId
-      userTaskId: $userTaskId
-      userActionItemId: $userActionItemId
+      userActionItemsInput: $userActionItemsInput
     ) {
       taskId
       actionItemId
@@ -86,12 +84,12 @@ export const userActionItemDetails = /* GraphQL */ `
     }
   }
 `;
-export const userActionItemsDetails = /* GraphQL */ `
-  query UserActionItemsDetails(
+export const updateUserActionItemResponse = /* GraphQL */ `
+  query UpdateUserActionItemResponse(
     $userProjectId: String
     $userActionItemsInput: UserActionItemsListInput
   ) {
-    userActionItemsDetails(
+    updateUserActionItemResponse(
       userProjectId: $userProjectId
       userActionItemsInput: $userActionItemsInput
     ) {

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import * as S from "./styles";
 
-import { API } from '@aws-amplify/api'
+import { API, graphqlOperation  } from '@aws-amplify/api'
 import { allProjectsPassQuery, allProjectTasks } from '../../graphql/queries'
+import { createUserProject } from '../../graphql/mutations'
 
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
@@ -24,6 +25,27 @@ async function list_projects() {
     }
   }
 
+async function create_user_project(localSelectedProject) {
+
+  const direct_project_details = {
+    uniqueId: localSelectedProject.uniqueId,
+    name: localSelectedProject.name,
+    typeId: localSelectedProject.typeId
+  };
+
+  try {
+      const response = await API.graphql(graphqlOperation(createUserProject, {userProject: direct_project_details}));
+      // For local testing.
+      // if (typeof response.data.UserProjectCreateOutput === 'undefined' || response.data.UserProjectCreateOutput.status.length === 0) {
+      //   console.log("No status returned");
+      // } else {
+      //   console.log("Project creation status : " + response.data.UserProjectCreateOutput.status);
+      // }
+    } catch (error) {
+      console.error(`Cought error in CreateProject function : ${error}`);
+    }
+  }
+
 function ProjectTypeDropdown(props) {
     console.log("Renderring ProjectDropDown");
   
@@ -42,7 +64,7 @@ function ProjectTypeDropdown(props) {
     };
   
     return (
-        <S.ProjectDropDownSelect name="id" onChange={handleOptionClick}>
+        <S.ProjectDropDownSelect name="typeId" onChange={handleOptionClick}>
         <option value="">Select an option</option>
         {Array.isArray(props.projectTypes) ? (
           props.projectTypes.map((project, index) => (
@@ -55,16 +77,17 @@ function ProjectTypeDropdown(props) {
 
 export default function ProjectInput({setSelectedProject}) {
     const [projectTypes, setProjectTypes] =
-    useState([{name: "Mockproject1" , id:11, description:"Mockproject1 description"},
-     {name: "Mockproject2", id:22, description:"Mockproject1 description"}]);
-    
+    useState([{name: "Mockproject1" , typeId:11, description:"Mockproject1 description", uniquId: "hello_world"},
+     {name: "Mockproject2", typeId:22, description:"Mockproject1 description", uniqueId: "hello_earth"}]);
+
     const [localSelectedProject, setLocalSelectedProject] = useState({
         name: '',
-        id: 0,
         // Add more form fields as needed
       });
 
     const [userEmail, setUserEmail] = useState('');
+    const [uniquId, setUniqueId] = useState('');
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         console.log("Setting : ", name , " to value : ", value);
@@ -72,6 +95,7 @@ export default function ProjectInput({setSelectedProject}) {
           setUserEmail(value);
           return;
         }
+
         setLocalSelectedProject({
             ...localSelectedProject,
             [name]: value,
@@ -82,10 +106,13 @@ export default function ProjectInput({setSelectedProject}) {
         // Perform actions with the form values
         console.log('localSelectedProject Data:', localSelectedProject);
         setSelectedProject(localSelectedProject);
-        // Create entry in the documentDB if requierd.
-        let id = localSelectedProject.name + ':' + localSelectedProject.id + ':' + userEmail;
-        console.log("Setting project ID to : " + id );
+        // Create entry in the documentDB if required.
+
+        let id = localSelectedProject.uniqueId;
+        console.log("Setting project uniqueId to : " + id );
         // Send create command if required.
+        create_user_project(localSelectedProject);
+        // Store the project type and
       };
 
       useEffect( () => {
@@ -97,17 +124,25 @@ export default function ProjectInput({setSelectedProject}) {
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
-    <h1>Test your expertise on current project..</h1>
+    <h1>Enter details of project you want to onboard on to..</h1>
     <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
     <br />
     <p>Project type : </p>
-    <S.ProjectTypeDropDown name="id" placeholder="Project type.." onChange={handleInputChange}>
+    <S.ProjectTypeDropDown name="typeId" placeholder="Project type.." onChange={handleInputChange}>
         {Array.isArray(projectTypes) ? (
         <ProjectTypeDropdown projectTypes={projectTypes} />
         ) : null}
     </S.ProjectTypeDropDown>
     <br/>
-    <S.EmailInput name="email" type="text" placeholder="Your email address (optional, not used yet)" onChange={handleInputChange}/>
+    <S.UniqueIdInput name="uniqueId" type="text" placeholder="Unique ID (to retrive project later)" onChange={handleInputChange}/>
+    <br/>
+    <br />
+    <br />
+    <h2>OR</h2>
+    <br/>
+    <h3>Enter UniqueID of previously saved project</h3>
+    <S.UniqueIdInput name="storedUniqueId" type="text" placeholder="Unique ID (previously used)" onChange={handleInputChange}/>
+    <br/>
     <br/>
     <S.ProjectSelectSubmit type="button" onClick={handleSubmit}>Lets get started</S.ProjectSelectSubmit>
   </S.Container>

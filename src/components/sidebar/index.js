@@ -68,7 +68,7 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
         return;
     }
     console.log("Valid project received. XXXXXXX ");
-    list_project_tasks(selectedProject.id)
+    list_project_tasks(selectedProject.typeId)
     .then((tasks_from_async) => {
       setLocalTaskList(tasks_from_async);
     });
