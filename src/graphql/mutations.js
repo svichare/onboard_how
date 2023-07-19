@@ -8,3 +8,12 @@ export const createUserProject = /* GraphQL */ `
     }
   }
 `;
+export const updateUserActionItemResponse = /* GraphQL */ `
+  mutation UpdateUserActionItemResponse(
+    $userActionItemInput: UpdateUserActionItemInput
+  ) {
+    updateUserActionItemResponse(userActionItemInput: $userActionItemInput) {
+      status
+    }
+  }
+`;

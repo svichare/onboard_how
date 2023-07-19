@@ -48,10 +48,11 @@ export const allTaskActionItems = /* GraphQL */ `
   }
 `;
 export const userProjectDetails = /* GraphQL */ `
-  query UserProjectDetails($userProjectId: ID) {
+  query UserProjectDetails($userProjectId: String) {
     userProjectDetails(userProjectId: $userProjectId) {
-      id
+      uniqueId
       name
+      typeId
       taskResponses {
         id
         name
@@ -75,21 +76,6 @@ export const userActionItemsDetails = /* GraphQL */ `
     $userActionItemsInput: UserActionItemsListInput
   ) {
     userActionItemsDetails(
-      userProjectId: $userProjectId
-      userActionItemsInput: $userActionItemsInput
-    ) {
-      taskId
-      actionItemId
-      response
-    }
-  }
-`;
-export const updateUserActionItemResponse = /* GraphQL */ `
-  query UpdateUserActionItemResponse(
-    $userProjectId: String
-    $userActionItemsInput: UserActionItemsListInput
-  ) {
-    updateUserActionItemResponse(
       userProjectId: $userProjectId
       userActionItemsInput: $userActionItemsInput
     ) {

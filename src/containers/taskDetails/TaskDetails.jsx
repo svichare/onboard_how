@@ -3,8 +3,10 @@ import * as S from "./taskDetailsStyles";
 
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
-import { API } from '@aws-amplify/api'
+import { API, graphqlOperation } from '@aws-amplify/api'
 import { allTaskActionItems, taskDetails, userActionItemsDetails } from '../../graphql/queries'
+import { updateUserActionItemResponse } from '../../graphql/mutations'
+
 
 async function fetch_task_details(id) {
     try {
@@ -82,18 +84,18 @@ async function fetch_task_details(id) {
     }
   }
 
-  async function fetch_actionItem_responses(taskId, actionItem_list_from_async) {
+  async function fetch_actionItem_responses(taskId, userProjectUniqueId, actionItem_list_from_async) {
     var results_with_responses = [];
     // Create a request array.
     var actionitem_request = [];
     console.log("Creating request : ");
     for (const actionItem of actionItem_list_from_async) {
       var cur_actionitem_request = {
-        userProjectId: "hello_world_perfect_format_ints:1:svichare@onboard.ai",
+        userProjectId: userProjectUniqueId,
         taskId: 0,
         actionItemId: 0
       };
-      cur_actionitem_request.userProjectId = "hello_world_perfect_format_ints:1:svichare@onboard.ai";
+      cur_actionitem_request.userProjectId = userProjectUniqueId;
       cur_actionitem_request.taskId = taskId;
       cur_actionitem_request.actionItemId = actionItem.id;
       actionitem_request.push(cur_actionitem_request);
@@ -106,7 +108,7 @@ async function fetch_task_details(id) {
     try {
       console.log("Requesting responses for these many actions : ", actionItem_list_from_async.length);
       const variables_object = {
-        userProjectId:"hello_world_perfect_format_ints:1:svichare@onboard.ai",
+        userProjectId:userProjectUniqueId,
         userActionItemsInput: actionitem_list_as_array
       };
       console.log("Request : ");
@@ -153,50 +155,87 @@ async function fetch_task_details(id) {
     }
   }
 
-function FetchTaskDetailsFunc(taskId, setSelectedLocalTask, setSelectedLocalActionItems) {
+function FetchTaskDetailsFunc(taskId, userProjectUniqueId, setSelectedLocalTask, setSelectedLocalActionItems) {
     console.log("Request to fetch task details received.");
     fetch_task_details(taskId).then((task_details_from_async) => {
       setSelectedLocalTask(task_details_from_async);
       fetch_actionItem_details(taskId).then((actionItem_details_from_async) => {
-        fetch_actionItem_responses(taskId, actionItem_details_from_async).then((actionItem_with_responses) => {
+        fetch_actionItem_responses(taskId, userProjectUniqueId, actionItem_details_from_async).then((actionItem_with_responses) => {
           setSelectedLocalActionItems(actionItem_with_responses);
         });
       });
     });
 }
 
+async function update_action_response(curUniqueId, curTaskId, curActionItemId, curResponse) {
+  // update actionItem with the response.
+  const action_item_details = {
+    uniqueId: curUniqueId,
+    taskId: curTaskId,
+    actionItemId: curActionItemId,
+    response: curResponse
+  };
+
+  console.log("Update the action response : " + action_item_details.uniqueId
+   + " : " + action_item_details.taskId + " : " + action_item_details.actionItemId
+   + " : " + action_item_details.response);
+  try {
+      const response = await API.graphql(
+        graphqlOperation(updateUserActionItemResponse,
+          {userActionItemInput: action_item_details}));
+      // For local testing.
+      // if (typeof response.data.UserProjectCreateOutput === 'undefined' || response.data.UserProjectCreateOutput.status.length === 0) {
+      //   console.log("No status returned");
+      // } else {
+      //   console.log("Project creation status : " + response.data.UserProjectCreateOutput.status);
+      // }
+  } catch (error) {
+      console.error(`Cought error in update_action_response function : ${error}`);
+  }
+}
+
 function FormatQuestions(props) {
   const result = [];
 
-  if (Array.isArray(props.subtasks)) {
-    props.subtasks.forEach((task, index) => {
+  const handleResponseChange = (e, actionItem) => {
+    actionItem.response = e.target.value;
+    update_action_response(props.userProjectUniqueId, props.taskId, actionItem.id, e.target.value)
+  };
+
+  if (Array.isArray(props.actionItems)) {
+    props.actionItems.forEach((actionItem, index) => {
       result.push(
         <p><br></br></p>,
-        <p key={index}> .. {task.description}</p>
+        <p key={index}> .. {actionItem.description}</p>
       );
-      switch (task.actionType) {
+      switch (actionItem.actionType) {
         case 'Tick': 
           result.push(<div class="buttons">
-          <input type="radio" name={task.name + "_choice"} value="yes" defaultChecked={task.response == "yes"} onChange={(e) => {
-            task.response = e.target.value;
+          <input type="radio" name={actionItem.name + "_choice"} value="yes" defaultChecked={actionItem.response == "yes"} onChange={(e) => {
+            actionItem.response = e.target.value;
+            handleResponseChange(e, actionItem);
           }}/>  Yes 
-          <input type="radio" name={task.name + "_choice"} value="no"  defaultChecked={task.response == "no"} onChange={(e) => {
-            task.response = e.target.value;
+          <input type="radio" name={actionItem.name + "_choice"} value="no"  defaultChecked={actionItem.response == "no"} onChange={(e) => {
+            actionItem.response = e.target.value;
+            handleResponseChange(e, actionItem);
           }} />  No 
-          <input type="radio" name={task.name + "_choice"} value="na" defaultChecked={task.response == "na"} onChange={(e) => {
-            task.response = e.target.value;
+          <input type="radio" name={actionItem.name + "_choice"} value="na" defaultChecked={actionItem.response == "na"} onChange={(e) => {
+            actionItem.response = e.target.value;
+            handleResponseChange(e, actionItem);
           }} />  NA
         </div>);
         break;
         case 'details':
           // result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."></S.TextInput>);
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .." defaultValue={task.response} onChange={(e) => {
-            task.response = e.target.value;
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .." defaultValue={actionItem.response} onChange={(e) => {
+            actionItem.response = e.target.value;
+            handleResponseChange(e, actionItem);
           }}></S.TextInput>);
         break;
         case '':
-          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."  defaultValue={task.response} onChange={(e) => {
-            task.response = e.target.value;
+          result.push(<S.TextInput type="text" placeholder="Enter link to the documents .."  defaultValue={actionItem.response} onChange={(e) => {
+            actionItem.response = e.target.value;
+            handleResponseChange(e, actionItem);
           }}></S.TextInput>);
         break;
       }
@@ -210,7 +249,7 @@ function FormatQuestions(props) {
   );
 }
 
-export default function FetchTaskDetails({selectedTask}) {
+export default function FetchTaskDetails({selectedTask, userProjectUniqueId}) {
 
   const [selectedLocalTask, setSelectedLocalTask] = useState([{name: "Initialized value",
   id:1,
@@ -225,7 +264,7 @@ export default function FetchTaskDetails({selectedTask}) {
   useEffect( () => {
     // Clear old values of actionItem list.
     setSelectedLocalActionItems([]);
-    FetchTaskDetailsFunc(selectedTask.id, setSelectedLocalTask, setSelectedLocalActionItems);
+    FetchTaskDetailsFunc(selectedTask.id, userProjectUniqueId, setSelectedLocalTask, setSelectedLocalActionItems);
   }, [selectedTask.id]);
 
 return (
@@ -236,7 +275,7 @@ return (
     <p> <br></br> </p>
 
     <p>Answer the following. I ..</p>
-    <FormatQuestions subtasks={selectedLocalActionItems} />
+    <FormatQuestions actionItems={selectedLocalActionItems} userProjectUniqueId={userProjectUniqueId} taskId={selectedLocalTask[0].id}/>
     <p> <br></br> </p>
   </S.Container>
 );

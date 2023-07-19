@@ -43,7 +43,7 @@ export default function TestSkills() {
             break;
 
             default:
-                renderedPage = <TaskDetails selectedTask={selectedTask} />;
+                renderedPage = <TaskDetails selectedTask={selectedTask} userProjectUniqueId={selectedProject.uniqueId} />;
                 renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
             break;
         }
