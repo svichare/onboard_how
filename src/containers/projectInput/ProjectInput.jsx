@@ -171,6 +171,7 @@ return (
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
     <h1>Enter details of project you want to onboard on to..</h1>
     <S.StatusMessage>{typeof statusMessage != 'undefined' && statusMessage.length > 0 ? statusMessage : null}</S.StatusMessage>
+    <p>Project Name : </p>
     <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
     <br />
     <p>Project type : </p>
@@ -179,14 +180,14 @@ return (
         <ProjectTypeDropdown projectTypes={projectTypes} />
         ) : null}
     </S.ProjectTypeDropDown>
-    <br/>
+    <p>Unique ID for the project, to retrive it later : </p>
     <S.UniqueIdInput name="uniqueId" type="text" placeholder="Unique ID (to retrive project later)" onChange={handleInputChange}/>
     <br/>
     <br />
     <br />
     <h2>OR</h2>
     <br/>
-    <h3>Enter UniqueID of previously saved project</h3>
+    <h3>Unique ID of previously saved project</h3>
     <S.UniqueIdInput name="storedUniqueId" type="text" placeholder="Unique ID (previously used)" onChange={handleInputChange}/>
     <br/>
     <br/>
