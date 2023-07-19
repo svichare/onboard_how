@@ -34,6 +34,11 @@ export const UniqueIdInput = styled.input`
   background-color: #bbeff2;
 `;
 
+export const StatusMessage = styled.div`
+  color: #f44336; /* Red color for error message */
+  font-size: 16px;
+`;
+
 export const ProjectTypeDropDown = styled.div`
 font-family: 'Mulish';
   font-style: normal;

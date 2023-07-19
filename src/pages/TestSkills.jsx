@@ -50,9 +50,13 @@ export default function TestSkills() {
     
   } else if (selectedProject.name.length > 0) {
     // Get list of project task list if required.
-    renderedPage = <ProjectDetails selectedProject={selectedProject} />;
-    console.log("Sending project ID: XXXX ", selectedProject.typeId);
-    renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
+    if (selectedProject.id == -1) {
+      renderedPage = <ProjectInput setSelectedProject={setSelectedProject} statusMessage={selectedProject.status_message} />;
+      renderedSidebar = <Sidebar ProjectTaskList={[]} />;
+    } else {
+      renderedPage = <ProjectDetails selectedProject={selectedProject} />;
+      renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
+    }    
   } else {
     // Project not selected yet.
     renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;

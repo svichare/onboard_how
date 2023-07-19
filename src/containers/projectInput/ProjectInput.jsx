@@ -40,6 +40,8 @@ async function create_user_project(localSelectedProject) {
 }
 
 async function fetch_user_project(userProjectUniqueId) {
+  const error_return_value = {name: "errorProjectPlaceholder" , id:-1,
+  uniqueId: "errorUniqueId", typeId: -1};
   try {
     console.log("Fetching user project details for ID : " + userProjectUniqueId);
     const response = await API.graphql({
@@ -49,18 +51,15 @@ async function fetch_user_project(userProjectUniqueId) {
 
     // For local testing.
     if (typeof response.data.userProjectDetails == 'undefined') {
-      return {name: "Mockproject1FromFunction" , id:11,
-        uniqueId: userProjectUniqueId, typeId: 2};
+      return error_return_value;
     }
     if (response.data.userProjectDetails.length == 0) {
-      return {name: "Mockproject2FromFunction" , id:11,
-        uniqueId: userProjectUniqueId, typeId: 2};
+      return error_return_value;
     }
     return response.data.userProjectDetails;
   } catch (error) {
     console.error(`Cought error in fetch_user_project function : ${error}`);
-    return {name: "Mockproject3FromFunction" , id:11,
-        uniqueId: userProjectUniqueId, typeId: 2};
+    return error_return_value;
   }
 }
 
@@ -93,7 +92,7 @@ function ProjectTypeDropdown(props) {
     );
   }
 
-export default function ProjectInput({setSelectedProject}) {
+export default function ProjectInput({setSelectedProject, statusMessage}) {
     const [projectTypes, setProjectTypes] =
     useState([{name: "Mockproject1" , typeId:11, description:"Mockproject1 description", uniquId: "hello_world"},
      {name: "Mockproject2", typeId:22, description:"Mockproject1 description", uniqueId: "hello_earth"}]);
@@ -102,6 +101,12 @@ export default function ProjectInput({setSelectedProject}) {
         name: '',
         // Add more form fields as needed
       });
+
+    const errorProject = {
+      id: -1,
+      name: "error_project_placeholder",
+      typeId:-1
+    };
 
     const [userEmail, setUserEmail] = useState('');
     const [storedUniqueId, setStoredUniqueId] = useState('');
@@ -127,24 +132,32 @@ export default function ProjectInput({setSelectedProject}) {
       const handleSubmit = () => {
         // Perform actions with the form values
         if (storedUniqueId === '') {
-          // Make sure that new project details are in place.
-          console.log('localSelectedProject Data:', localSelectedProject);
-          setSelectedProject(localSelectedProject);
           // Create entry in the documentDB if required.
           let id = localSelectedProject.uniqueId;
           console.log("Setting project uniqueId to : " + id );
-          // Send create command if required.
-          create_user_project(localSelectedProject);
+          // Fetch project to see if it already exists.
+          fetch_user_project(id).then( (userProject) => {
+            if (userProject.id == -1) {
+              // This is a legit new project. Return the values.
+              console.log('localSelectedProject Data:', localSelectedProject);
+              setSelectedProject(localSelectedProject);
+              create_user_project(localSelectedProject);    
+            } else {
+              errorProject.status_message = "Unique Id already in use. (You had one job!)"
+              setSelectedProject(errorProject);
+            }
+          });
         } else {
           // User wants to fetch existing project.
           fetch_user_project(storedUniqueId).then( (userProject) => {
-            setSelectedProject(userProject);
+            if (userProject.id == -1) {
+              errorProject.status_message = "Could not fetch project linked to the Unique ID.";
+              setSelectedProject(errorProject);
+            } else {
+              setSelectedProject(userProject);
+            }
           });
-          // fetch the project details.
-          // set the localSelectedProject with those details.
         }
-        
-        // Store the project type and
       };
 
       useEffect( () => {
@@ -157,6 +170,7 @@ return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
     <h1>Enter details of project you want to onboard on to..</h1>
+    <S.StatusMessage>{typeof statusMessage != 'undefined' && statusMessage.length > 0 ? statusMessage : null}</S.StatusMessage>
     <S.ProjectNameInput name="name" type="text" placeholder="Project name" onChange={handleInputChange}/>
     <br />
     <p>Project type : </p>
