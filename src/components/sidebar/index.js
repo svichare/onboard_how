@@ -83,7 +83,7 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
           <S.ProfileInfo onClick={() => {console.log("Top left image clicked.");
               if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'Home', id:999}); setLocalTaskList([]);}}>
             <h2 className="text-base">Onboard.how</h2>
-            <S.Email className="text-sm">svichare@onboard.how</S.Email>
+            <S.Email className="text-sm">support@onboard.how</S.Email>
           </S.ProfileInfo>
         </S.Profile>
         <S.List>
