@@ -56,7 +56,7 @@ export default function TestSkills() {
     } else {
       renderedPage = <ProjectDetails selectedProject={selectedProject} setSelectedTask={setSelectedTask} />;
       renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
-    }    
+    }
   } else {
     // Project not selected yet.
     renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;

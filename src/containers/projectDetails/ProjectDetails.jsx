@@ -13,24 +13,28 @@ export default function ProjectDetails({selectedProject, setSelectedTask}) {
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
-    <h1><b>{selectedProject.name}</b></h1>
+    <h1>Lets go deeper into "<b>{selectedProject.name}</b>" project</h1>
     <br />
-    <p>On the left Sidebar, there is a curated list of topics. </p>
-    <p>Complete every topic to make sure you have a complete picture of the project you are working on.</p>
+    <p>On the left Sidebar, you will see a list of topics. </p>
+    <p>Each topic page has a list of specific data points that you need to know.</p>
+    <br/>
+    <p>Take control of your onboarding by making sure you cover all the topics in your knowledge transfer phase.</p>
+    <p>Document the information in this tool. Make sure the information is always fresh.</p>
+    <S.Comic>It either this or Leetcode .... choose wisely</S.Comic>
     <br />
     <br />
     <br />
     <br />
     <br />
     <br />
-    <p><b>FYI</b>: The project's unique id is <b>{selectedProject.uniqueId}</b></p>
+    <p><b>FYI</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>
     <br />
     <p>Email the id to yourself so that you wont lose the stored data.</p>
     <p>Share it with your teammates to combine the knowledge of the team in one place.</p>
     <S.Comic>Dont share it with that one colleague though.</S.Comic>
 
     <br />
-    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Work on a different project</S.ProjectResetSubmit>
+    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Switch Project</S.ProjectResetSubmit>
 
   </S.Container>
 );
