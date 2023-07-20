@@ -54,7 +54,7 @@ export default function TestSkills() {
       renderedPage = <ProjectInput setSelectedProject={setSelectedProject} statusMessage={selectedProject.status_message} />;
       renderedSidebar = <Sidebar ProjectTaskList={[]} />;
     } else {
-      renderedPage = <ProjectDetails selectedProject={selectedProject} />;
+      renderedPage = <ProjectDetails selectedProject={selectedProject} setSelectedTask={setSelectedTask} />;
       renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
     }    
   } else {

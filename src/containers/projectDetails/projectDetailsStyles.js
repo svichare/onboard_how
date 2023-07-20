@@ -18,3 +18,18 @@ export const TopImage = styled.img`
 width: 50%;
 height: 25%;
 `;
+
+export const ProjectResetSubmit = styled.button`
+padding: 0.1rem 0.5rem;
+top: 20px;
+color: #fff;
+background: #2F4BAE;
+font-family: var(--font-family);
+font-weight: 500;
+font-size: 18px;
+line-height: 25px;
+border: none;
+outline: none;
+cursor: pointer;
+border-radius: 5px;
+`;
