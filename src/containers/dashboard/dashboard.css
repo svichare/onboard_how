@@ -19,7 +19,8 @@
 }
 
 .gpt3__dashboard_dropdown {
-  font-family: 'Mulish';
+  /* font-family: 'Mulish'; */
+  font-family: Consolas, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 16px;
@@ -33,7 +34,8 @@
   left: 0px;
   top: 0px;
 
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Consolas, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -49,7 +51,8 @@
   left: 0px;
   top: 0px;
 
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Consolas, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -66,7 +69,8 @@
   top: 0px;
   /* Regular/16px */
 
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Consolas, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 800;
   font-size: 16px;

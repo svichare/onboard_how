@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   width: 262px;
   height: 100%;
   min-height: 100vh;
+  font-family: Consolas, Arial, Helvetica, sans-serif;
 `;
 export const Container = styled.div`
   border-right: 1px solid #e1e1eb;
@@ -58,7 +59,7 @@ export const Item = styled.a`
   color: #696d8c;
 
   &.active {
-    font-family: "Gelion Bold", -apple-system, "Segoe UI", "Roboto";
+    font-family: Consolas, Arial, Helvetica, sans-serif;
     color: #6837ef;
     font-weight: 500;
   }
@@ -93,7 +94,7 @@ export const SubItem = styled.a`
   padding-left: 18px;
 
   &.active {
-    font-family: "Gelion Bold", -apple-system, "Segoe UI", "Roboto";
+    font-family: Consolas, Arial, Helvetica, sans-serif;
     color: #060213;
     font-weight: 500;
     position: relative;
