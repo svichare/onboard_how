@@ -8,6 +8,12 @@ export const Container = styled.div`
   padding: 0 40px;
 `;
 
+export const Comic = styled.div`
+  font-family: "Comic Sans MS", cursive;
+  font-style: normal;
+  font-weight: 100;
+`;
+
 export const TopImage = styled.img`
 width: 50%;
 height: 25%;
