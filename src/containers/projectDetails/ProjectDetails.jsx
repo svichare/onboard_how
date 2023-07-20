@@ -19,7 +19,7 @@ return (
     <p>On the left Sidebar, you will see a list of topics. </p>
     <p>Each topic page has a list of specific data points that you need to know.</p>
     <br/>
-    <p>Take control of your onboarding by making sure you cover all the topics in your knowledge transfer phase.</p>
+    <p>Take control of your onboarding by making sure you have knowledge of all these topics.</p>
     <p>Document the information in this tool. Make sure the information is always fresh.</p>
     <S.Comic>It's either this or Leetcode .... choose wisely</S.Comic>
     <br />
@@ -35,7 +35,7 @@ return (
     <S.Comic>Dont share it with that one colleague though.</S.Comic>
 
     <br />
-    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Switch Project</S.ProjectResetSubmit>
+    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Switch Project / Home</S.ProjectResetSubmit>
 
   </S.Container>
 );
