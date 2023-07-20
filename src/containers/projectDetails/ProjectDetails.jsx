@@ -8,6 +8,7 @@ export default function ProjectDetails({selectedProject, setSelectedTask}) {
 
   const handleSubmit = () => {
     setSelectedTask({name:'Home', id:999});
+
   };
     
 return (
@@ -20,16 +21,16 @@ return (
     <br/>
     <p>Take control of your onboarding by making sure you cover all the topics in your knowledge transfer phase.</p>
     <p>Document the information in this tool. Make sure the information is always fresh.</p>
-    <S.Comic>It either this or Leetcode .... choose wisely</S.Comic>
+    <S.Comic>It's either this or Leetcode .... choose wisely</S.Comic>
     <br />
     <br />
     <br />
     <br />
     <br />
     <br />
-    <p><b>FYI</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>
+    <p><b>IMPORTANT</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>
+    <p>Store this id carefully to retrieve submitted data the next time you access the tool.</p>
     <br />
-    <p>Email the id to yourself so that you wont lose the stored data.</p>
     <p>Share it with your teammates to combine the knowledge of the team in one place.</p>
     <S.Comic>Dont share it with that one colleague though.</S.Comic>
 

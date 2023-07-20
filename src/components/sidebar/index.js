@@ -65,6 +65,7 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
     if (typeof selectedProject === "undefined") {
         // nothing to do as project not selected.
         console.log("Undefined project received. XXXXXXX");
+        setLocalTaskList([]);
         return;
     }
     console.log("Valid project received. XXXXXXX ");
