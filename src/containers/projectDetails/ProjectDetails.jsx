@@ -28,7 +28,7 @@ return (
     <br />
     <br />
     <br />
-    <p><b>IMPORTANT</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>
+    <p><b>*IMPORTANT*</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>
     <p>Store this id carefully to retrieve submitted data the next time you access the tool.</p>
     <br />
     <p>Share it with your teammates to combine the knowledge of the team in one place.</p>
