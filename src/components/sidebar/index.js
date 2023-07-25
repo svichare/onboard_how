@@ -84,8 +84,8 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
           <S.ProfileInfo onClick={() => {console.log("Top left image clicked.");
               // Reset the selected task here.
               if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'', id:0});}}>
-            <h2 className="text-base">Onboard.how</h2>
-            <S.Email className="text-sm">support@onboard.how</S.Email>
+            <h2 className="text-base">Onboard.icu</h2>
+            <S.Email className="text-sm">admin@onboard.icu</S.Email>
           </S.ProfileInfo>
         </S.Profile>
         <S.List>
