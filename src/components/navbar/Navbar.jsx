@@ -3,21 +3,26 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo_redhat_blue.png';
 import './navbar.css';
 
-const Navbar = () => {
+const Navbar = ({setSelectedTask}) => {
    const [toggleMenu, setToggleMenu] = useState(false);
 
   return (
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
-        <div className="gpt3__navbar-links_logo">
+        {/* <div className="gpt3__navbar-links_logo">
           <img src={logo} alt="logo" />
-        </div>
-        <div className="gpt3__navbar-links_container">
-          <p><a href="#home">Home</a></p>
+        </div> */}
+        <div className="gpt3__navbar-sign">
+          <button type="button" onClick={() => setSelectedTask({name:'Home', id:999})}>Home</button>
         </div>
         <div className="gpt3__navbar-sign">
-          <p>Sign in</p>
-          <button type="button">Sign up</button>
+          <button type="button">Testimonials</button>
+        </div>
+        <div className="gpt3__navbar-sign">
+          <button type="button">Contact Us</button>
+        </div>
+        <div className="gpt3__navbar-sign">
+          <button type="button">About</button>
         </div>
         <div className="gpt3__navbar-menu">
         {toggleMenu

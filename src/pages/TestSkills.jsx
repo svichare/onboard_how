@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import { ProjectInput, ProjectDetails, TaskDetails, ResultDashboard } from '../containers';
-import { Sidebar } from '../components';
+import { Navbar, Sidebar } from '../components';
 import * as S from "./testSkillStyles";
 
 
@@ -66,7 +66,7 @@ export default function TestSkills() {
     <S.Container>
       {renderedSidebar}
       <S.Main>
-          {/* <Navbar /> */}
+          <Navbar setSelectedTask={setSelectedTask} />
           {renderedPage}
       </S.Main>
     </S.Container>

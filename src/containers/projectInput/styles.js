@@ -69,6 +69,9 @@ padding: 0.1rem 0.5rem;
 top: 20px;
 color: #fff;
 background: #2F4BAE;
+// Yello + black
+// color: #070707;
+// background: #f0f081;
 font-family: var(--font-family);
 font-weight: 500;
 font-size: 18px;
