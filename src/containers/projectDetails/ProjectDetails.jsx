@@ -8,7 +8,6 @@ export default function ProjectDetails({selectedProject, setSelectedTask}) {
 
   const handleSubmit = () => {
     setSelectedTask({name:'Home', id:999});
-
   };
     
 return (
@@ -35,7 +34,7 @@ return (
     <S.Comic>Dont share it with that one colleague though.</S.Comic>
 
     <br />
-    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Switch Project / Home</S.ProjectResetSubmit>
+    <S.ProjectResetSubmit type="button" onClick={handleSubmit}>Switch Project</S.ProjectResetSubmit>
 
   </S.Container>
 );
