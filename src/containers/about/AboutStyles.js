@@ -9,6 +9,6 @@ export const AboutContainer = styled.div`
 `;
 
 export const AboutTopImage = styled.img`
-width: 50%;
-height: 25%;
+width: 40%;
+height: 30%;
 `;
