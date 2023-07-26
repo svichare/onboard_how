@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import { ProjectInput, ProjectDetails, TaskDetails, ResultDashboard } from '../containers';
+import { ProjectInput, ProjectDetails, TaskDetails, ResultDashboard, About } from '../containers';
 import { Navbar, Sidebar } from '../components';
 import * as S from "./testSkillStyles";
 
@@ -40,13 +40,18 @@ export default function TestSkills() {
                 rank: "1"}]});
                 renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;
                 renderedSidebar = <Sidebar ProjectTaskList={[]} />;
-            break;
+        break;
 
-            default:
-                renderedPage = <TaskDetails selectedTask={selectedTask} userProjectUniqueId={selectedProject.uniqueId} />;
-                renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
-            break;
-        }
+        case 'About':
+            renderedPage = <About />;
+            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
+        break;
+
+        default:
+            renderedPage = <TaskDetails selectedTask={selectedTask} userProjectUniqueId={selectedProject.uniqueId} />;
+            renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
+        break;
+    }
     
   } else if (selectedProject.name.length > 0) {
     // Get list of project task list if required.
