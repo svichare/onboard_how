@@ -30,7 +30,7 @@ async function list_project_tasks(id) {
 }
 
 
-function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
+function DisplayProjectTaskList({ProjectTaskList, setSelectedTask, mixpanel}) {
   if (typeof ProjectTaskList === "undefined"|| ProjectTaskList.length === 0 ) {
     // nothing to do as project not selected.
     console.log("Undefined project tasklist returning without fuss. XXXXXXX");
@@ -44,7 +44,9 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
       {
         ProjectTaskList.map((value, index) => (
           <S.SubListItem>
-          <S.SubItem onClick={() => {console.log("task sidebar clicked"); setSelectedTask(value)}} key={value.id}>{value.name}</S.SubItem>
+          <S.SubItem onClick={() => {console.log("task sidebar clicked"); setSelectedTask(value); mixpanel.track('Task Opened', {
+                'Task Name': value.name
+              });}} key={value.id}>{value.name}</S.SubItem>
           </S.SubListItem>
         ))
       }
@@ -52,14 +54,8 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask}) {
   );
 }
 
-export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProject}) {
-  const [localTaskList, setLocalTaskList] = useState([
-  //   {
-  //   name: '',
-  //   type: '',
-  //   id: '',
-  // }
-]);
+export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProject, mixpanel}) {
+  const [localTaskList, setLocalTaskList] = useState([]);
 
   useEffect( () => {
     if (typeof selectedProject === "undefined") {
@@ -91,7 +87,9 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
         <S.List>
           <S.ListItem>
             <S.Item onClick={() => {console.log("result sidebar clicked");
-              setSelectedTask({name:'ResultDashboard', id:999});}} href="#">
+              setSelectedTask({name:'ResultDashboard', id:999});
+              mixpanel.track('Result Dashboard Opened', {})
+              }} href="#">
               <S.ItemIcon src={Shape} alt="shape" />
               Result Dashboard
             </S.Item>
@@ -101,10 +99,10 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
           <S.ListItem className="dropdown">
             <S.Item href="#" className="active">
               <S.ItemIcon src={Message} alt="message" />
-              Test Topics
+              Tasks
             </S.Item>
             <img src={ArrowDown} alt="arrow" />
-            <DisplayProjectTaskList ProjectTaskList={localTaskList} setSelectedTask={setSelectedTask}/>
+            <DisplayProjectTaskList ProjectTaskList={localTaskList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>
            </S.ListItem>
         </S.List>
       </S.Container>

@@ -200,6 +200,9 @@ function FormatQuestions(props) {
   const handleResponseChange = (e, actionItem) => {
     actionItem.response = e.target.value;
     update_action_response(props.userProjectUniqueId, props.taskId, actionItem.id, e.target.value)
+    props.mixpanel.track('Action Response Updated', {
+      'Action Name': actionItem.name
+    });
   };
 
   if (Array.isArray(props.actionItems)) {
@@ -249,7 +252,7 @@ function FormatQuestions(props) {
   );
 }
 
-export default function FetchTaskDetails({selectedTask, userProjectUniqueId}) {
+export default function FetchTaskDetails({selectedTask, userProjectUniqueId, mixpanel}) {
 
   const [selectedLocalTask, setSelectedLocalTask] = useState([{name: "Initialized value",
   id:1,
@@ -275,7 +278,8 @@ return (
     <p> <br></br> </p>
 
     <p>Answer the following. I ..</p>
-    <FormatQuestions actionItems={selectedLocalActionItems} userProjectUniqueId={userProjectUniqueId} taskId={selectedLocalTask[0].id}/>
+    <FormatQuestions actionItems={selectedLocalActionItems} userProjectUniqueId={userProjectUniqueId}
+     taskId={selectedLocalTask[0].id} mixpanel={mixpanel} />
     <p> <br></br> </p>
   </S.Container>
 );

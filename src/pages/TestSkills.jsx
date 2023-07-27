@@ -28,7 +28,7 @@ export default function TestSkills() {
         case 'ResultDashboard': 
             // Show result dashboard here.
             renderedPage = <ResultDashboard />;
-            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
+            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
 
         case 'Home':
@@ -42,17 +42,18 @@ export default function TestSkills() {
                 type: "bool",
                 rank: "1"}]});
                 renderedPage = <ProjectInput setSelectedProject={setSelectedProject} />;
-                renderedSidebar = <Sidebar ProjectTaskList={[]} />;
+                renderedSidebar = <Sidebar ProjectTaskList={[]} mixpanel={mixpanel}/>;
         break;
 
         case 'About':
             renderedPage = <About />;
-            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
+            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
 
         default:
             renderedPage = <TaskDetails selectedTask={selectedTask} userProjectUniqueId={selectedProject.uniqueId} />;
-            renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} />;
+            renderedSidebar = <Sidebar selectedProject={selectedProject}
+             ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
     }
     
@@ -62,16 +63,17 @@ export default function TestSkills() {
     // Get list of project task list if required.
     if (selectedProject.id == -1) {
       renderedPage = <ProjectInput setSelectedProject={setSelectedProject} statusMessage={selectedProject.status_message} />;
-      renderedSidebar = <Sidebar ProjectTaskList={[]} />;
+      renderedSidebar = <Sidebar ProjectTaskList={[]} mixpanel={mixpanel}/>;
     } else {
 
       renderedPage = <ProjectDetails selectedProject={selectedProject} setSelectedTask={setSelectedTask} />;
-      renderedSidebar = <Sidebar selectedProject={selectedProject} ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask}/>;
+      renderedSidebar = <Sidebar selectedProject={selectedProject}
+       ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
     }
   } else {
     // Project not selected yet.
     renderedPage = <ProjectInput setSelectedProject={setSelectedProject} mixpanelInput={mixpanel} />;
-    renderedSidebar = <Sidebar ProjectTaskList={[]} />;
+    renderedSidebar = <Sidebar ProjectTaskList={[]} mixpanel={mixpanel}/>;
   }
   return (
     <S.Container>

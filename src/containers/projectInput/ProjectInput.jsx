@@ -145,10 +145,13 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
               setSelectedProject(localSelectedProject);
               create_user_project(localSelectedProject);  
               mixpanel.identify(localSelectedProject.name) 
-              mixpanel.track('Project Opened', {
-                'Project Type': 'New'
+              mixpanel.track('Project Created', {
+                'Project Type': localSelectedProject.typeId
               }) 
             } else {
+              mixpanel.identify(localSelectedProject.name) 
+              mixpanel.track('Project ID Not Unique',
+               {error_message: "Unique Id already in use. (You had one job!)"}) 
               errorProject.status_message = "Unique Id already in use. (You had one job!)"
               setSelectedProject(errorProject);
             }
@@ -159,11 +162,14 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
             if (userProject.id == -1) {
               errorProject.status_message = "Could not fetch project linked to the Unique ID.";
               setSelectedProject(errorProject);
+              mixpanel.identify(storedUniqueId) 
+              mixpanel.track('Project ID Not Found',
+               {error_message: "Could not fetch project linked to the Unique ID."}) 
             } else {
               setSelectedProject(userProject);
               mixpanel.identify(userProject.name) 
               mixpanel.track('Project Opened', {
-                'Project Type': 'Existing'
+                'Project Type': localSelectedProject.typeId
               })
             }
           });
