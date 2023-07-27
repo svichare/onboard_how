@@ -147,7 +147,7 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
               mixpanel.identify(localSelectedProject.name) 
               mixpanel.track('Project Created', {
                 'Project Type': localSelectedProject.typeId
-              }) 
+              })
             } else {
               mixpanel.identify(localSelectedProject.name) 
               mixpanel.track('Project ID Not Unique',

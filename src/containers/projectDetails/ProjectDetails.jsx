@@ -4,10 +4,11 @@ import * as S from "./projectDetailsStyles";
 import brain_simplify from '../../assets/brain_simplify.jpg'
 
 
-export default function ProjectDetails({selectedProject, setSelectedTask}) {
+export default function ProjectDetails({selectedProject, setSelectedTask, mixpanel}) {
 
   const handleSubmit = () => {
     setSelectedTask({name:'Home', id:999});
+    mixpanel.track('Project Switch Clicked', {});
   };
     
 return (

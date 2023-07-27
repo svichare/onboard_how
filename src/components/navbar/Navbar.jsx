@@ -17,10 +17,10 @@ const Navbar = ({setSelectedTask}) => {
         </div>
         {/* <div className="gpt3__navbar-sign">
           <button type="button">Testimonials</button>
-        </div>
+        </div> */}
         <div className="gpt3__navbar-sign">
-          <button type="button">Contact Us</button>
-        </div>  */}
+          <button type="button" onClick={() => setSelectedTask({name:'ContactUs', id:999})}>Contact Us</button>
+        </div> 
         <div className="gpt3__navbar-sign">
           <button type="button" onClick={() => setSelectedTask({name:'About', id:999})}>About</button>
         </div>

@@ -10,20 +10,21 @@ export default function About() {
 return (
     <S.AboutContainer>
         {/* <S.AboutTopImage src={about_rish_crop2} alt="about_rish_crop2" /> */}
-        <p>Onboarding is hard. It is even harder for introverted software engineers. </p>
+        <p>Onboarding is hard. Much more so for introvert software engineers. </p>
+        <p>It is usually at the mercy of how much time and patience the most social engineer of the team has.</p>
         <br></br>
-        <p>The aim of this tool is to help engineers make maximum use of the initial window</p>
-        <p>to gain knowledge as fast as possible.</p>
+        <p>The aim of this tool is to make onboarding a standardized process. A process at the end of which </p>
+        <p>the engineer is equiped with all the information needed to be productive.</p>
+        <p>It does this by giving a list of tasks and infromation an engineer should do and learn.</p>
+        <p> This way the engineer either knows the information or has idea of the accumulated learning debt.</p>
         <br></br>
-        <p>Engineers are eager to prove their abilities. Hence the jump into writing</p>
-        <p>working code or fixing the first bug. By the time the first real code is submitted,</p>
-        <p>the crucial first few weeks are over. In that time, the engineer typically gets to</p>
-        <p>know only a small subsystem in the project.</p>
-        <br></br>
-        <p>As the tenure of the engineer on the project increases, the window to ask basic</p>
-        <p>questions to others gets narrower. Learning those aspects through self-study is</p>
-        <p>possible but typically takes 10 times more effort than just asking someone.   </p>
+        <p>As a Software Engineer I have onboarded on a variety of projects, from storage devices to cloud backends.</p>
+        <p>I have worked with super-star engineers who I have seen go from zero to hyper-productive in matter of weeks. </p>
+        <p>From observing what these engineers do naturally, I have created this tool for the rest.</p>
+        <p>Hope you find it as useful as I do. Thanks! </p>
+        <p>- Satoshi Nakamoto</p>
         <S.AboutTopImage src={about_alone} alt="about_alone" />
+
 
     </S.AboutContainer>
 );

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import { ProjectInput, ProjectDetails, TaskDetails, ResultDashboard, About } from '../containers';
+import { ProjectInput, ProjectDetails, TaskDetails, ResultDashboard, About, ContactUs } from '../containers';
 import { Navbar, Sidebar } from '../components';
 import * as S from "./testSkillStyles";
 import mixpanel from 'mixpanel-browser';
@@ -50,8 +50,14 @@ export default function TestSkills() {
             renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
 
+        case 'ContactUs':
+            renderedPage = <ContactUs />;
+            renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
+        break;
+
         default:
-            renderedPage = <TaskDetails selectedTask={selectedTask} userProjectUniqueId={selectedProject.uniqueId} />;
+            renderedPage = <TaskDetails selectedTask={selectedTask}
+             userProjectUniqueId={selectedProject.uniqueId} mixpanel={mixpanel}/>;
             renderedSidebar = <Sidebar selectedProject={selectedProject}
              ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
@@ -66,7 +72,7 @@ export default function TestSkills() {
       renderedSidebar = <Sidebar ProjectTaskList={[]} mixpanel={mixpanel}/>;
     } else {
 
-      renderedPage = <ProjectDetails selectedProject={selectedProject} setSelectedTask={setSelectedTask} />;
+      renderedPage = <ProjectDetails selectedProject={selectedProject} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
       renderedSidebar = <Sidebar selectedProject={selectedProject}
        ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
     }
