@@ -6,6 +6,7 @@ import { allProjectsPassQuery, allProjectTasks, userProjectDetails } from '../..
 import { createUserProject } from '../../graphql/mutations'
 
 import brain_simplify from '../../assets/brain_simplify.jpg'
+import mixpanel from 'mixpanel-browser';
 
 async function list_projects() {
   try {
@@ -93,6 +94,7 @@ function ProjectTypeDropdown(props) {
   }
 
 export default function ProjectInput({setSelectedProject, statusMessage}) {
+  mixpanel.init('59c469bb7eb9d16f26c54243b1e5f5be', { debug: true, track_pageview: true, persistence: 'localStorage' });
     const [projectTypes, setProjectTypes] =
     useState([{name: "Mockproject1" , typeId:11, description:"Mockproject1 description", uniquId: "hello_world"},
      {name: "Mockproject2", typeId:22, description:"Mockproject1 description", uniqueId: "hello_earth"}]);
@@ -141,7 +143,11 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
               // This is a legit new project. Return the values.
               console.log('localSelectedProject Data:', localSelectedProject);
               setSelectedProject(localSelectedProject);
-              create_user_project(localSelectedProject);    
+              create_user_project(localSelectedProject);  
+              mixpanel.identify(localSelectedProject.name) 
+              mixpanel.track('Project Opened', {
+                'Project Type': 'New'
+              }) 
             } else {
               errorProject.status_message = "Unique Id already in use. (You had one job!)"
               setSelectedProject(errorProject);
@@ -155,6 +161,10 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
               setSelectedProject(errorProject);
             } else {
               setSelectedProject(userProject);
+              mixpanel.identify(userProject.name) 
+              mixpanel.track('Project Opened', {
+                'Project Type': 'Existing'
+              })
             }
           });
         }
