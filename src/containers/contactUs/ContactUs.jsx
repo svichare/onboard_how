@@ -26,13 +26,15 @@ const ContactUs = () => {
   return (
     <S.ContactUsContainer>
       <h2>Email</h2>
-      <S.ContactUsLabel>For any technical issues : support@onboard.icu </S.ContactUsLabel>
+      <S.ContactUsLabel>To contact the developer directly : shivaji.vichare@onboard.icu </S.ContactUsLabel>
       <br />
       <S.ContactUsLabel>For reporting any bugs   : bug_report@onboard.icu </S.ContactUsLabel>
       <br />
+      <S.ContactUsLabel>For any other issues   : support@onboard.icu </S.ContactUsLabel>
+      <br />
       <S.ContactUsLabel>If I owe you money    : donotreply@onboard.icu </S.ContactUsLabel>
       <br />
-      <h2>Social media</h2>
+      <h2>Social media links</h2>
       <br />
       <S.ContactUsLabel><a href="https://www.linkedin.com/in/shivaji-vichare/">Linkedin</a></S.ContactUsLabel>
       <br />
