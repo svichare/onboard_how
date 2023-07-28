@@ -10,7 +10,7 @@ export default function ProjectDetails({selectedProject, setSelectedTask, mixpan
     setSelectedTask({name:'Home', id:999});
     mixpanel.track('Project Switch Clicked', {});
   };
-    
+
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />

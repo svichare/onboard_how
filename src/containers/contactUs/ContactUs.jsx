@@ -1,28 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import * as S from "./ContactUsStyles";
 
-const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+const ContactUs = ({mixpanel}) => {
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can handle form submission logic here
-    console.log('Form data:', formData);
-  };
-
+    useEffect(() => {
+    // Add event listeners to the links with the class "socialLink"
+    const trackedLinks = document.querySelectorAll('.socialLink');
+    trackedLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+        mixpanel.track('Social Link Clicked', { link_text: link.innerText });
+        });
+    });
+    }, []);
+    
   return (
     <S.ContactUsContainer>
       <h2>Email</h2>
@@ -36,13 +27,13 @@ const ContactUs = () => {
       <br />
       <h2>Social media links</h2>
       <br />
-      <S.ContactUsLabel><a href="https://www.linkedin.com/in/shivaji-vichare/">Linkedin</a></S.ContactUsLabel>
+      <S.ContactUsLabel><a href="https://www.linkedin.com/in/shivaji-vichare/" class="socialLink">Linkedin</a></S.ContactUsLabel>
       <br />
-      <S.ContactUsLabel><a href="https://www.instagram.com/shivaxinsta/">Instagram</a></S.ContactUsLabel>
+      <S.ContactUsLabel><a href="https://www.instagram.com/shivaxinsta/" class="socialLink">Instagram</a></S.ContactUsLabel>
       <br />
-      <S.ContactUsLabel><a href="https://github.com/svichare/onboard_how">Github</a></S.ContactUsLabel>
+      <S.ContactUsLabel><a href="https://github.com/svichare/onboard_how" class="socialLink">Github</a></S.ContactUsLabel>
       <br />
-      <S.ContactUsLabel><a href="https://isha.sadhguru.org/us/en/">OnlyFans</a></S.ContactUsLabel>
+      <S.ContactUsLabel><a href="https://isha.sadhguru.org/us/en/" class="socialLink">OnlyFans</a></S.ContactUsLabel>
       <br />
     </S.ContactUsContainer>
   );

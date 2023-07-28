@@ -51,7 +51,7 @@ export default function TestSkills() {
         break;
 
         case 'ContactUs':
-            renderedPage = <ContactUs />;
+            renderedPage = <ContactUs mixpanel={mixpanel}/>;
             renderedSidebar = <Sidebar ProjectTaskList={MockProjectTypeList} setSelectedTask={setSelectedTask} mixpanel={mixpanel}/>;
         break;
 
