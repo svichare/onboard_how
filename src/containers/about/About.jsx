@@ -10,6 +10,8 @@ export default function About() {
 return (
     <S.AboutContainer>
         {/* <S.AboutTopImage src={about_rish_crop2} alt="about_rish_crop2" /> */}
+        <p><b>[Tool in alpha phase, but functional. Feel free to play around. Launch scheduled in Dec 2023]</b></p>
+        <br></br>
         <p>Onboarding is hard. Much more so for introverted software engineers. </p>
         <p>It is usually at the mercy of how much time and patience the nicest engineer on the team has.</p>
         <br></br>
