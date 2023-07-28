@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "figma_icon_192.png",
+      "src": "figma_group192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "figma_icon_512.png",
+      "src": "figma_group512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

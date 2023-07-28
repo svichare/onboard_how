@@ -3,6 +3,7 @@ import * as S from "./styles";
 import Message from "../../assets/icons/message.png";
 import Shape from "../../assets/icons/shape.png";
 import Arrow from "../../assets/icons/arrow-right.png";
+import FigmaIcon from "../../assets/icons/figma_group512.png";
 import ArrowDown from "../../assets/icons/arrow-down-nav.png";
 
 import { API } from '@aws-amplify/api'
@@ -76,7 +77,7 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
     <S.Wrapper>
       <S.Container>
         <S.Profile>
-          <S.ProfileImg></S.ProfileImg>
+          <S.IconImg src={FigmaIcon} alt="arrow"></S.IconImg>
           <S.ProfileInfo onClick={() => {console.log("Top left image clicked.");
               // Reset the selected task here.
               if(typeof setSelectedTask !== "undefined") setSelectedTask({name:'', id:0});}}>
