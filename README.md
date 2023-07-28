@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# OnBoard.icu
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The aim of this tool is to make onboarding a standardized process. A process at
+the end of which the engineer is equiped with all the information needed to be productive.
+It does this by giving a list of tasks and infromation an engineer should do and learn.
+This way the engineer either knows the information or has idea of the accumulated learning debt.
 
 ## Available Scripts
 
