@@ -13,7 +13,8 @@ return (
         <p><b>[Tool in alpha phase, but functional. Feel free to play around on laptop/monitor.]</b></p>
         <br></br>
         <p>Onboarding is hard. Much more so for introverted software engineers. </p>
-        <p>It is usually at the mercy of how much time and patience the nicest engineer on the team has.</p>
+        <p>It usually depends on the niceness of the most senior engineer on the team.</p>
+        <p>Also on the degree to which you are ready to annoy that engineer.</p>
         <br></br>
         <p>The aim of this tool is to make onboarding a standardized process. A process at the end of which </p>
         <p>the engineer is equipped with all the information needed to be productive.</p>
