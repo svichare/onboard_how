@@ -3,17 +3,17 @@
   "name": "OnBoarding done right.",
   "icons": [
     {
-      "src": "figma_group.ico",
+      "src": "color_match_icon.ico",
       "sizes": "64x64 48x48 32x32 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "figma_group192.png",
+      "src": "color_match192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "figma_group512.png",
+      "src": "color_match512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

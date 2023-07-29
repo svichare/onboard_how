@@ -14,18 +14,16 @@ export default function ProjectDetails({selectedProject, setSelectedTask, mixpan
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
-    <h1>Lets go deeper into "<b>{selectedProject.name}</b>" project</h1>
+    <h1>Lets go deeper into </h1>
+    <h1>"<b>{selectedProject.name}</b>"</h1>
     <br />
     <p>On the left Sidebar, you will see a list of topics. </p>
     <p>Each topic page has a list of specific data points that you need to know.</p>
     <br/>
-    <p>Take control of your onboarding by making sure you have knowledge of all these topics.</p>
-    <p>Document the information in this tool. Make sure the information is always fresh.</p>
+    <p>Make sure you have knowledge of all these topics.</p>
+    <p>Document the information in this tool.</p>
+    <p>Make sure the information is always fresh.</p>
     <S.Comic>It's either this or Leetcode .... choose wisely</S.Comic>
-    <br />
-    <br />
-    <br />
-    <br />
     <br />
     <br />
     <p><b>*IMPORTANT*</b>: This project's unique id is <b>{selectedProject.uniqueId}</b></p>

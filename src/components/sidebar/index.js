@@ -3,7 +3,7 @@ import * as S from "./styles";
 import Message from "../../assets/icons/message.png";
 import Shape from "../../assets/icons/shape.png";
 import Arrow from "../../assets/icons/arrow-right.png";
-import FigmaIcon from "../../assets/icons/figma_group512.png";
+import FigmaIcon from "../../assets/icons/color_match512.png";
 import ArrowDown from "../../assets/icons/arrow-down-nav.png";
 
 import { API } from '@aws-amplify/api'

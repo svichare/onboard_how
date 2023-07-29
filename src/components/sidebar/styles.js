@@ -29,7 +29,7 @@ export const ProfileImg = styled.div`
 export const IconImg = styled.img`
   width: 30px;
   height: 30px;
-  border-radius: 5px;
+  // border-radius: 5px;
 `;
 export const ProfileInfo = styled.div`
   margin-left: 11px;
