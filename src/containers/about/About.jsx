@@ -23,14 +23,14 @@ return (
         <p>By using the tool to onboard, you will get a list of tasks to do and a list of data points to learn.</p>
         <p>You can track your progress and document all the important information you have learnt.</p>
         <p>The tool will ensure there are no blindspots in your mental model of the project. </p>
-        <p>It will ensure you wont get distracted by the fog of artificial deadlines. </p>
+        <p>It will ensure you won't get distracted by the fog of artificial deadlines. </p>
         <br></br>
         <br></br>
         <p>Remember .. </p>
         <p> .. your manager and team work for you until you onboard. </p>
         <p> .. you can command their time and attention.</p>
         <p> .. just like they will demand your performance once the onboarding ends.</p>
-        <p> .. dont waste those precious onboarding weeks... grab them by the horn .. hit them out of the park .. </p>
+        <p> .. don't waste those precious onboarding weeks... grab them by the horn .. hit them out of the park .. </p>
         <p> .. send them up in space and make them land upright on a drone ship..</p>
         <p> .. you have my blessings !
         </p>
