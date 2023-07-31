@@ -31,7 +31,9 @@ return (
         <p> .. you can command their time and attention.</p>
         <p> .. just like they will demand your performance once the onboarding ends.</p>
         <p> .. dont waste those precious onboarding weeks... grab them by the horn .. hit them out of the park .. </p>
-        <p> .. you have my blessings !</p>
+        <p> .. send them up in space and make them land upright on a drone ship..</p>
+        <p> .. you have my blessings !
+        </p>
         <br></br>
         <p>- Satoshi Nakamoto</p>
         <S.AboutTopImage src={about_alone} alt="about_alone" />
