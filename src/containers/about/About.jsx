@@ -12,15 +12,18 @@ return (
         {/* <S.AboutTopImage src={about_rish_crop2} alt="about_rish_crop2" /> */}
         <p><b>[Tool in alpha phase, but functional. Feel free to play around on laptop/monitor.]</b></p>
         <br></br>
-        <p>Onboarding is hard. Much more so for introverted software engineers. </p>
-        <p>It usually depends on the niceness of the most senior engineer on the team.</p>
-        <p>Also on the degree to which you are ready to annoy that engineer.</p>
-        <p></p>
+        <p>Onboarding onto a new software project is hard. It is a stressful time </p>
+        <p>when you are meeting new teammates, forming new connections, getting used to </p>
+        <p>new tools, shortcuts and lunch conversations.</p>
+        <p>At the same time you need to learn a completely new codebase. Here you need to balance</p>
+        <p>the need for showing productivity with the urge of learning everything in the tech stack in detail.</p>
+        <p>Juggling all this requires a lot of emotional intelligence <cite>which you clearly don't have</cite>.</p>
+        <p>That's where onboard.icu can help.</p>
         <br></br>
-        <p>The aim of this tool is to make onboarding a standardized process. A process at the end of which </p>
-        <p>the engineer is equipped with all the information needed to be productive.</p>
-        <p>It does this by giving a list of tasks and information an engineer should do and learn.</p>
-        <p> This way the engineer either knows the information or has an idea of the accumulated learning debt.</p>
+        <p>By using the tool to onboard, you will get a list of tasks to do and a list of data points to learn.</p>
+        <p>You can track your progress and document all the important information you have learnt.</p>
+        <p>You can share the project with your teammates to create a shared knowledge-base. </p>
+        <p>Onboarding any new teammate will be a matter of sharing this link with that poor soul. </p>
         <br></br>
         <p>As a software engineer I have onboarded on a variety of projects, from storage devices to cloud backends.</p>
         <p>I have worked with superstar engineers who I have seen go from zero to hyper-productive in a matter of weeks.</p>
