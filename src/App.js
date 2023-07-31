@@ -35,6 +35,7 @@ const App = () =>{
       <div fontFamily="Consolas, Arial, Helvetica, sans-serif">
         <img src={color_logo} />
         <p>Text heavy website. Please use larger screen to access.</p>
+        <p>Or turn your phone to landscape mode. But goodluck typing in any of the text boxes! </p>
       </div>
     );
   } else {
