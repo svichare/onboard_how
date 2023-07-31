@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css'
 
-// import FirstAttempt from './pages/FirstAttempt';
+import color_logo from './assets/logo/color_logo.png'
 import TestSkills from './pages/TestSkills';
 
 
@@ -32,8 +32,8 @@ const App = () =>{
 
   if (!isLargeScreen) {
     return (
-      <div>
-        <h2>Onboard.icu:</h2>
+      <div fontFamily="Consolas, Arial, Helvetica, sans-serif">
+        <img src={color_logo} />
         <p>Text heavy website. Please use larger screen to access.</p>
       </div>
     );
