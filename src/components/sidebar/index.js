@@ -35,11 +35,8 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask, mixpanel}) {
   if (typeof ProjectTaskList === "undefined"|| ProjectTaskList.length === 0 ) {
     // nothing to do as project not selected.
     console.log("Undefined project tasklist returning without fuss. XXXXXXX");
-    return <><S.SubList><S.SubItem href="#" key={0}>Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
+    return <><S.SubList><S.SubItem href="#" key={0}>Pick a project on the form to see Task list.</S.SubItem></S.SubList></>;
   }
-  // if (typeof ProjectTaskList === "undefined" || ProjectTaskList.length === 0) {
-  //   return <><S.SubList><S.SubItem href="#">Pick a project on the form to see test topics.</S.SubItem></S.SubList></>;
-  // }
   return (
     <S.SubList>
       {
@@ -86,17 +83,6 @@ export default function Sidebar({ProjectTaskList, setSelectedTask, selectedProje
           </S.ProfileInfo>
         </S.Profile>
         <S.List>
-          <S.ListItem>
-            <S.Item onClick={() => {console.log("result sidebar clicked");
-              setSelectedTask({name:'ResultDashboard', id:999});
-              mixpanel.track('Result Dashboard Opened', {})
-              }} href="#">
-              <S.ItemIcon src={Shape} alt="shape" />
-              Result Dashboard
-            </S.Item>
-            <img src={Arrow} alt="arrow" />
-          </S.ListItem>
-
           <S.ListItem className="dropdown">
             <S.Item href="#" className="active">
               <S.ItemIcon src={Message} alt="message" />
