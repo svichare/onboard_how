@@ -122,9 +122,6 @@ async function fetch_task_details(id) {
       console.log("Sending ActionItem responses received from backend.");
       console.log("Data length : " + response.data.userActionItemsDetails.length);
       
-      // +  "  Data is : " + response.data.userActionItemsDetails[0].taskId
-      // + " : " + response.data.userActionItemsDetails[0].actionItemId
-      // + " : " + response.data.userActionItemsDetails[0].response);
       if (response.data.userActionItemsDetails.length == 0) {
         return actionItem_list_from_async;
       } else {
@@ -277,16 +274,16 @@ function FormatQuestions(props) {
 
 export default function FetchTaskDetails({selectedTask, userProjectUniqueId, mixpanel}) {
 
-  const [selectedLocalTask, setSelectedLocalTask] = useState([{name: "Initialized value",
+  const [selectedLocalTask, setSelectedLocalTask] = useState([{name: "Fetching details ..",
   id:1,
   description: "Description default task set in the local function."}]);
   
-  const [selectedLocalActionItems, setSelectedLocalActionItems] = useState([{name: "Initialized value",
+  const [selectedLocalActionItems, setSelectedLocalActionItems] = useState([{name: "Fetching details ..",
   id:1,
-  description: "Description default task set in the local function.",
+  description: "Fetching details ...",
   actionType: "Tick",
   response: "no",
-  comment: "comment loading"}]);
+  comment: "Fetching details .."}]);
 
   useEffect( () => {
     // Clear old values of actionItem list.

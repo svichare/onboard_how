@@ -104,6 +104,12 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
         // Add more form fields as needed
       });
 
+    const sampleProject = {
+        uniqueId: "onboardicu",
+        name: "Onboard.icu project",
+        typeId:1
+    };
+
     const errorProject = {
       id: -1,
       name: "error_project_placeholder",
@@ -129,6 +135,10 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
             ...localSelectedProject,
             [name]: value,
         });
+    };
+
+    const handleSampleSubmit = () => {
+      setSelectedProject(sampleProject);
     };
 
       const handleSubmit = () => {
@@ -185,6 +195,11 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
 return (
   <S.Container>
     <S.TopImage src={brain_simplify} alt="brain_simplify" />
+    <br/>
+    <S.ProjectSelectSubmit type="button" onClick={handleSampleSubmit}>Explore the tool with Sample Project</S.ProjectSelectSubmit>
+    <br/>
+    <h2>OR</h2>
+    <br/>
     <h1>Project you want to onboard on to..</h1>
     <S.StatusMessage>{typeof statusMessage != 'undefined' && statusMessage.length > 0 ? statusMessage : null}</S.StatusMessage>
     <p>Name: </p>
@@ -199,15 +214,12 @@ return (
     <p>Unique ID for the project, to retrive it later: </p>
     <S.UniqueIdInput name="uniqueId" type="text" placeholder="Unique ID (to retrive project later)" onChange={handleInputChange}/>
     <br/>
-    <br />
-    <br />
     <h2>OR</h2>
-    <br/>
     <h3>Unique ID of previously saved project:</h3>
     <S.UniqueIdInput name="storedUniqueId" type="text" placeholder="Unique ID (previously used)" onChange={handleInputChange}/>
     <br/>
-    <br/>
     <S.ProjectSelectSubmit type="button" onClick={handleSubmit}>Lets get started</S.ProjectSelectSubmit>
+    
   </S.Container>
 );
 }
