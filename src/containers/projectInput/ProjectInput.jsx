@@ -139,6 +139,8 @@ export default function ProjectInput({setSelectedProject, statusMessage}) {
 
     const handleSampleSubmit = () => {
       setSelectedProject(sampleProject);
+      mixpanel.identify(sampleProject.name) 
+              mixpanel.track('Sample Project Opened', {})
     };
 
       const handleSubmit = () => {
