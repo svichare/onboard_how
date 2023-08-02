@@ -130,7 +130,8 @@ async function fetch_task_details(id) {
       } else {
         console.log("Data details : " +  "  Data is : " + response.data.userActionItemsDetails[0].taskId
         + " : " + response.data.userActionItemsDetails[0].actionItemId
-        + " : " + response.data.userActionItemsDetails[0].response);
+        + " : " + response.data.userActionItemsDetails[0].response
+        + " : " + response.data.userActionItemsDetails[0].comment);
       }
 
       for (const actionItem of actionItem_list_from_async) {
@@ -139,8 +140,11 @@ async function fetch_task_details(id) {
           entry.actionItemId == cur_action.id
         );
         if (matchingEntry) {
-          console.log("Found matching entry for : " + cur_action.id + "  including response : " + matchingEntry.response);
+          console.log("Found matching entry for : " + cur_action.id + "  including response : " + matchingEntry.response
+          + "  comment : " + matchingEntry.comment);
+          // Should the entire object be copied instead of specific values?
           cur_action.response = matchingEntry.response;
+          cur_action.comment = matchingEntry.comment;
         } else {
           console.log("DID NOT find matching entry for : " + cur_action.id  + " actionItem.id : " + actionItem.id);
         }
@@ -167,13 +171,17 @@ function FetchTaskDetailsFunc(taskId, userProjectUniqueId, setSelectedLocalTask,
     });
 }
 
-async function update_action_response(curUniqueId, curTaskId, curActionItemId, curResponse) {
+async function update_action_response(curUniqueId, curTaskId, curActionItemId,
+   curResponse, curResponseUpdated, curComment, curCommentUpdated) {
   // update actionItem with the response.
   const action_item_details = {
     uniqueId: curUniqueId,
     taskId: curTaskId,
     actionItemId: curActionItemId,
-    response: curResponse
+    response: curResponse,
+    isResponseUpdated: curResponseUpdated,
+    comment: curComment,
+    isCommentUpdated: curCommentUpdated
   };
 
   console.log("Update the action response : " + action_item_details.uniqueId
@@ -199,8 +207,18 @@ function FormatQuestions(props) {
 
   const handleResponseChange = (e, actionItem) => {
     actionItem.response = e.target.value;
-    update_action_response(props.userProjectUniqueId, props.taskId, actionItem.id, e.target.value)
+    update_action_response(props.userProjectUniqueId, props.taskId,
+       actionItem.id, e.target.value, true,  "", false)
     props.mixpanel.track('Action Response Updated', {
+      'Action Name': actionItem.name
+    });
+  };
+
+  const handleCommentChange = (e, actionItem) => {
+    actionItem.response = e.target.value;
+    update_action_response(props.userProjectUniqueId, props.taskId, actionItem.id, "",
+     false,  e.target.value, true)
+    props.mixpanel.track('Action Comment Updated', {
       'Action Name': actionItem.name
     });
   };
@@ -213,19 +231,24 @@ function FormatQuestions(props) {
       );
       switch (actionItem.actionType) {
         case 'Tick': 
+        console.log("Action item details. response : " + actionItem.response + "  comment : " + actionItem.comment );
           result.push(<div class="buttons">
-          <input type="radio" name={actionItem.name + "_choice"} value="yes" defaultChecked={actionItem.response == "yes"} onChange={(e) => {
+          <S.GenericInput type="radio" name={actionItem.name + "_choice"} value="yes" defaultChecked={actionItem.response == "yes"} onChange={(e) => {
             actionItem.response = e.target.value;
             handleResponseChange(e, actionItem);
           }}/>  Yes 
-          <input type="radio" name={actionItem.name + "_choice"} value="no"  defaultChecked={actionItem.response == "no"} onChange={(e) => {
+          <S.GenericInput type="radio" name={actionItem.name + "_choice"} value="no"  defaultChecked={actionItem.response == "no"} onChange={(e) => {
             actionItem.response = e.target.value;
             handleResponseChange(e, actionItem);
           }} />  No 
-          <input type="radio" name={actionItem.name + "_choice"} value="na" defaultChecked={actionItem.response == "na"} onChange={(e) => {
+          <S.GenericInput type="radio" name={actionItem.name + "_choice"} value="na" defaultChecked={actionItem.response == "na"} onChange={(e) => {
             actionItem.response = e.target.value;
             handleResponseChange(e, actionItem);
-          }} />  NA
+          }} />  NA  
+          <S.SmallTextInput type="text" placeholder='Additional comments' defaultValue={actionItem.comment} onChange={(e) => {
+            actionItem.comment = e.target.value;
+            handleCommentChange(e, actionItem);
+          }}></S.SmallTextInput>
         </div>);
         break;
         case 'details':
@@ -262,7 +285,8 @@ export default function FetchTaskDetails({selectedTask, userProjectUniqueId, mix
   id:1,
   description: "Description default task set in the local function.",
   actionType: "Tick",
-  response: "no"}]);
+  response: "no",
+  comment: "comment loading"}]);
 
   useEffect( () => {
     // Clear old values of actionItem list.

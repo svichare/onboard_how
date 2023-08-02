@@ -35,7 +35,7 @@ function DisplayProjectTaskList({ProjectTaskList, setSelectedTask, mixpanel}) {
   if (typeof ProjectTaskList === "undefined"|| ProjectTaskList.length === 0 ) {
     // nothing to do as project not selected.
     console.log("Undefined project tasklist returning without fuss. XXXXXXX");
-    return <><S.SubList><S.SubItem href="#" key={0}>Pick a project on the form to see Task list.</S.SubItem></S.SubList></>;
+    return <><S.SubList><S.SubItem href="#" key={0}>Pick a project to see Task list.</S.SubItem></S.SubList></>;
   }
   return (
     <S.SubList>

@@ -67,6 +67,7 @@ export const userTaskDetails = /* GraphQL */ `
       taskId
       actionItemId
       response
+      comment
     }
   }
 `;
@@ -82,6 +83,7 @@ export const userActionItemsDetails = /* GraphQL */ `
       taskId
       actionItemId
       response
+      comment
     }
   }
 `;
